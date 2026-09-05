@@ -7,6 +7,7 @@ import { classifyPillar } from './pillarClassify.js';
 export default function Archive() {
   const [posts, setPosts] = useState([]);
   const [open, setOpen] = useState(null);
+  const [filter, setFilter] = useState('ALL');
 
   useEffect(() => {
     fetch(`${BASE_URL}assets/posts.json`)
@@ -14,6 +15,13 @@ export default function Archive() {
       .then((d) => setPosts(d.map((p) => ({ ...p, pillar: p.pillar || classifyPillar(p.caption) }))))
       .catch(() => setPosts([]));
   }, []);
+
+  const list = filter === 'ALL' ? posts : posts.filter((p) => p.pillar === filter);
+  const onNav = (d) => {
+    const i = list.findIndex((x) => x.id === open?.id);
+    if (i === -1 || list.length === 0) return;
+    setOpen(list[(i + d + list.length) % list.length]);
+  };
 
   return (
     <div style={{ minHeight: '100dvh', padding: '8vh 6vw', color: '#E8E4DC' }}>
@@ -24,8 +32,8 @@ export default function Archive() {
       <p style={{ fontFamily: 'var(--font-quote)', color: 'rgba(232,228,220,0.7)', maxWidth: '40rem', marginBottom: '3rem' }}>
         Every post from the @elitehuman archive — body, mind, spirit.
       </p>
-      <Grid posts={posts} onOpen={setOpen} />
-      <Lightbox post={open} onClose={() => setOpen(null)} />
+      <Grid posts={posts} onOpen={setOpen} filter={filter} onFilter={setFilter} />
+      <Lightbox post={open} onClose={() => setOpen(null)} onNav={onNav} />
     </div>
   );
 }
