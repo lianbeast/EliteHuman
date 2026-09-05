@@ -1,10 +1,11 @@
 import { useProgress } from '../lib/progressContext.jsx';
+import { BANDS } from '../lib/bands.js';
 
 const ZONES = [
   { min: 0.0, label: 'IRON' },
-  { min: 0.25, label: 'MIND' },
-  { min: 0.6, label: 'VIBRATION' },
-  { min: 0.9, label: 'APEX' },
+  { min: BANDS[0], label: 'MIND' },
+  { min: BANDS[1], label: 'VIBRATION' },
+  { min: BANDS[2], label: 'APEX' },
 ];
 
 export default function AscentMeter() {

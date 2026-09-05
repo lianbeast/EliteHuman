@@ -50,7 +50,7 @@ function Spacer() {
   return (
     <div style={altMode
       ? { height: '400vh', zIndex: 1, pointerEvents: 'none', scrollSnapType: 'y mandatory' }
-      : { height: '2500vh', position: 'relative', zIndex: 1, pointerEvents: 'none' }}
+      : { height: '8000vh', position: 'relative', zIndex: 1, pointerEvents: 'none' }}
       aria-hidden="true">
       {altMode && [0, 1, 2, 3].map((i) => (
         <div key={i} style={{ height: '100vh', scrollSnapAlign: 'start' }} />
