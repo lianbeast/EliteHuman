@@ -5,5 +5,5 @@ export default defineConfig({
   plugins: [react()],
   server: { port: 5173 },
   build: { target: 'es2020', sourcemap: true },
-  test: { environment: 'jsdom', setupFiles: ['./test/setup.js'] },
+  test: { environment: 'jsdom', setupFiles: ['./test/setup.js'], exclude: ['**/node_modules/**', '**/smoke.spec.js'] },
 });

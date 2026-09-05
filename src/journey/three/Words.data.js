@@ -1,0 +1,2 @@
+export const MIND_WORDS = ['BREATHE', 'GAME FACE', 'GREATNESS', 'ORDINARY ✕'];
+export const SPIRIT_WORDS = ['FAITH', 'VIBRATION', 'ASCEND', 'TRUTH'];
