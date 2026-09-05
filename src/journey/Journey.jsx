@@ -10,8 +10,10 @@ import Summit from './zones/Summit.jsx';
 import PaletteLerp from './PaletteLerp.jsx';
 import { useProgress } from '../lib/progressContext.jsx';
 import { clamp01 } from '../lib/easing.js';
+import { BANDS as ZONE_BOUNDS } from '../lib/bands.js';
+import { Preload } from '@react-three/drei';
 
-const BANDS = [0.25, 0.6, 0.9];
+const BANDS = ZONE_BOUNDS; // re-exported from bands.js for CA pulse proximity
 const isTouch = typeof window !== 'undefined' && window.matchMedia('(pointer: coarse)').matches;
 
 // m-6: chromatic aberration pulses near zone boundaries, static base elsewhere
@@ -31,7 +33,7 @@ export default function Journey() {
 
   return (
     <Canvas
-      dpr={[1.5, 2]}
+      dpr={[1, 1.75]}
       camera={{ fov: 55, near: 0.1, far: 100, position: [0, 0.4, 4] }}
       gl={{ antialias: true, powerPreference: 'high-performance' }}
       style={{ position: 'fixed', inset: 0, zIndex: 0 }}
@@ -46,6 +48,7 @@ export default function Journey() {
       </Suspense>
       <CameraSpline />
       <PaletteLerp />
+      <Preload all />
       {/* M-1: no postfx under reduced motion; no CA on touch; bloom downscaled on touch */}
       {altMode ? null : (
         <EffectComposer multisampling={0}>

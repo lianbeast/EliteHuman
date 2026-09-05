@@ -24,7 +24,7 @@ export default function ScrollRig() {
       };
     }
 
-    const lenis = new Lenis({ smoothWheel: true, lerp: 0.1 });
+    const lenis = new Lenis({ smoothWheel: true, lerp: 0.16, wheelMultiplier: 1.0 });
     lenisRef.current = lenis;
     const onScroll = () => {
       const max = document.body.scrollHeight - window.innerHeight;
