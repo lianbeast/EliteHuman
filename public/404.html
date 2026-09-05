@@ -1,11 +1,10 @@
 <!doctype html>
 <!-- GitHub Pages SPA fallback: rewrite /EliteHuman/archive → /EliteHuman/ (client router takes over) -->
 <script>
+  // GitHub Pages SPA fallback: /EliteHuman/archive → /EliteHuman/#/archive (App router reads hash after load)
   const SEG = 'EliteHuman/';
   const l = window.location;
-  if (l.pathname.startsWith('/' + SEG) && l.pathname !== '/' + SEG) {
-    l.replace(l.origin + '/' + SEG + l.search + l.hash);
-  } else {
-    l.replace(l.origin + '/' + SEG);
-  }
+  const route = l.pathname.startsWith('/' + SEG) ? l.pathname.slice(SEG.length + 1) : '';
+  if (route) l.replace(l.origin + '/' + SEG + '#/' + route + l.search);
+  else l.replace(l.origin + '/' + SEG);
 </script>

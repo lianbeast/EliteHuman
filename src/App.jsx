@@ -16,6 +16,14 @@ const routeOf = (url) => {
 
 function useRoute() {
   const [path, setPath] = useState(() => routeOf(window.location.pathname));
+  // SPA fallback (404.html) lands on /#archive-style hash — adopt it once, then strip
+  useEffect(() => {
+    if (window.location.hash.startsWith('#/')) {
+      const p = window.location.hash.slice(1);
+      window.history.replaceState({}, '', BASE + p.slice(1));
+      setPath(p);
+    }
+  }, []);
   useEffect(() => {
     const onPop = () => setPath(routeOf(window.location.pathname));
     window.addEventListener('popstate', onPop);
