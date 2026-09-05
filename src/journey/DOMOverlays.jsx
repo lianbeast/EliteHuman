@@ -24,10 +24,15 @@ export default function DOMOverlays() {
         <div style={{ fontFamily: 'var(--font-mono)', fontSize: '0.75rem', letterSpacing: '0.25em', color: '#C9A227' }}>
           {z.eyebrow}
         </div>
-        <h2 style={{
-          fontFamily: 'var(--font-display)', fontWeight: 900, fontSize: 'clamp(4rem, 12vw, 9rem)',
-          lineHeight: 0.9, margin: '0.5rem 0 1rem', color: '#E8E4DC', letterSpacing: '0.02em',
-        }}>{z.title}</h2>
+        {z === PANELS[0]
+          ? <h1 style={{
+              fontFamily: 'var(--font-display)', fontWeight: 900, fontSize: 'clamp(4rem, 12vw, 9rem)',
+              lineHeight: 0.9, margin: '0.5rem 0 1rem', color: '#E8E4DC', letterSpacing: '0.02em',
+            }}>{z.title}</h1>
+          : <h2 style={{
+              fontFamily: 'var(--font-display)', fontWeight: 900, fontSize: 'clamp(4rem, 12vw, 9rem)',
+              lineHeight: 0.9, margin: '0.5rem 0 1rem', color: '#E8E4DC', letterSpacing: '0.02em',
+            }}>{z.title}</h2>}
         <p style={{
           fontFamily: 'var(--font-quote)', fontStyle: 'italic', fontSize: 'clamp(1.2rem, 2vw, 1.8rem)',
           color: '#E8E4DC', margin: 0, lineHeight: 1.3,

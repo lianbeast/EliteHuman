@@ -25,7 +25,9 @@ Vite · React 18 · @react-three/fiber · drei · postprocessing · Lenis · Vit
 ## Build & deploy
 
     npm run build             # static bundle in ./dist
-    npm run deploy            # build + copy scraped assets
+    npm run deploy            # same, plus copies scraped assets into ./dist
+
+`deploy` is local-only staging — no host is contacted. See "Deploy target" below.
 
 ## Deploy target
 

@@ -1,4 +1,4 @@
-import { Text } from 'troika-three-text';
+import { Text } from '@react-three/drei';
 import { useMemo, useRef } from 'react';
 import { useFrame } from '@react-three/fiber';
 

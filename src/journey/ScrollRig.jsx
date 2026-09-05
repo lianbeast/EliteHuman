@@ -10,11 +10,18 @@ export default function ScrollRig() {
     if (altMode) {
       const onScroll = () => {
         const max = document.body.scrollHeight - window.innerHeight;
-        setProgress(max > 0 ? window.scrollY / max : 0);
+        const raw = max > 0 ? window.scrollY / max : 0;
+        // snap progress to quarter-steps so DOM zone panels match scroll-snap sections
+        setProgress(Math.round(raw * 4) / 4);
       };
       onScroll();
+      // M-2: per-zone scroll snap for reduced motion (4 × 100vh sections)
+      document.documentElement.style.scrollSnapType = 'y mandatory';
       window.addEventListener('scroll', onScroll, { passive: true });
-      return () => window.removeEventListener('scroll', onScroll);
+      return () => {
+        document.documentElement.style.scrollSnapType = '';
+        window.removeEventListener('scroll', onScroll);
+      };
     }
 
     const lenis = new Lenis({ smoothWheel: true, lerp: 0.1 });

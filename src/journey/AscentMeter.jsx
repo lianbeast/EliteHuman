@@ -11,7 +11,8 @@ export default function AscentMeter() {
   const { progress } = useProgress();
   const z = [...ZONES].reverse().find((zone) => progress >= zone.min) ?? ZONES[0];
   return (
-    <div id="ascent-meter" aria-hidden="true" style={{
+    // m-2: skip-link target must be focusable + announce progress to screen readers (aria-hidden removed)
+    <div id="ascent-meter" role="progressbar" aria-valuemin={0} aria-valuemax={1} aria-valuenow={progress.toFixed(2)} aria-label="Ascent progress" tabIndex={-1} style={{
       position: 'fixed', right: '1.5rem', top: '20vh', height: '60vh', width: '2px',
       background: 'rgba(232,228,220,0.15)', zIndex: 10,
     }}>

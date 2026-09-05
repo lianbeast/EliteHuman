@@ -4,13 +4,16 @@ export default function Preloader({ onDone }) {
   const [n, setN] = useState(0);
   useEffect(() => {
     let i = 0;
+    let t;
     const tick = () => {
       i = Math.min(100, i + 2 + Math.random() * 4);
       setN(Math.floor(i));
-      if (i < 100) setTimeout(tick, 30);
+      // N-3: clear pending timeout on unmount so no setState fires after Preloader is gone
+      if (i < 100) t = setTimeout(tick, 30);
       else onDone?.();
     };
     tick();
+    return () => clearTimeout(t);
   }, [onDone]);
   return (
     <div role="status" aria-live="polite" style={{

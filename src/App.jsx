@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { ProgressProvider } from './lib/progressContext.jsx';
+import { ProgressProvider, useProgress } from './lib/progressContext.jsx';
 import ScrollRig from './journey/ScrollRig.jsx';
 import Journey from './journey/Journey.jsx';
 import AscentMeter from './journey/AscentMeter.jsx';
@@ -29,6 +29,20 @@ function useRoute() {
   return path;
 }
 
+function Spacer() {
+  const { altMode } = useProgress();
+  return (
+    <div style={altMode
+      ? { height: '400vh', zIndex: 1, pointerEvents: 'none', scrollSnapType: 'y mandatory' }
+      : { height: '2500vh', position: 'relative', zIndex: 1, pointerEvents: 'none' }}
+      aria-hidden="true">
+      {altMode && [0, 1, 2, 3].map((i) => (
+        <div key={i} style={{ height: '100vh', scrollSnapAlign: 'start' }} />
+      ))}
+    </div>
+  );
+}
+
 export default function App() {
   const [ready, setReady] = useState(false);
   const path = useRoute();
@@ -50,7 +64,8 @@ export default function App() {
       <Journey onReady={() => setReady(true)} />
       <AscentMeter />
       <DOMOverlays />
-      <div style={{ height: '2500vh', position: 'relative', zIndex: 1, pointerEvents: 'none' }} aria-hidden="true" />
+      {/* scroll spacer — 4 zone sections enable scroll-snap under reduced motion */}
+      <Spacer />
       {!ready && <Preloader onDone={() => setReady(true)} />}
     </ProgressProvider>
   );

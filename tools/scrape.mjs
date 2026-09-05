@@ -13,17 +13,17 @@ const PILLAR_KEYWORDS = {
 export function classifyPillar(caption = '') {
   const text = caption.toLowerCase();
   const scores = { IRON: 0, MIND: 0, SPIRIT: 0 };
+  // m-5: left word-boundary regex — 'gain' matches 'gains'/'gaining' but not 'again'
   for (const [pillar, words] of Object.entries(PILLAR_KEYWORDS)) {
-    for (const w of words) if (text.includes(w)) scores[pillar]++;
+    for (const w of words) if (new RegExp(`\\b${w}`).test(text)) scores[pillar]++;
   }
   const best = Object.entries(scores).sort((a, b) => b[1] - a[1])[0];
   return best[1] === 0 ? 'MIND' : best[0]; // default to MIND if nothing matches
 }
 
 export function parsePosts(actorOutput) {
-  const profile = actorOutput[0];
-  if (!profile?.latestPosts) return [];
-  return profile.latestPosts.map((p) => ({
+  // apify/instagram-post-scraper emits flat post items
+  return actorOutput.map((p) => ({
     id: p.id,
     caption: (p.caption || '').trim(),
     date: p.timestamp,
@@ -44,9 +44,9 @@ async function downloadImage(url, dest) {
 export async function runScrape({ user = 'elitehuman', token, outDir = 'public/assets' } = {}) {
   if (!token) throw new Error('APIFY_TOKEN required');
   const client = new ApifyClient({ token });
-  const run = await client.actor('apify/instagram-profile-scraper').call({
-    usernames: [user],
-    resultsType: 'posts',
+  // M-3: post-scraper actor returns ALL posts (profile-scraper hard-caps at 12 latest)
+  const run = await client.actor('apify/instagram-post-scraper').call({
+    username: [user],
     resultsLimit: 200,
   });
   const { items } = await client.dataset(run.defaultDatasetId).listItems();
@@ -54,7 +54,7 @@ export async function runScrape({ user = 'elitehuman', token, outDir = 'public/a
   const imgDir = path.join(outDir, 'img');
   if (!existsSync(imgDir)) await mkdir(imgDir, { recursive: true });
   const enriched = await Promise.all(posts.map(async (post) => {
-    const source = items[0].latestPosts.find((p) => p.id === post.id);
+    const source = items.find((p) => p.id === post.id);
     if (!source?.displayUrl) return post;
     try {
       await downloadImage(source.displayUrl, path.join(imgDir, `${post.id}.jpg`));

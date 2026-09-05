@@ -27,6 +27,13 @@ export default function CameraSpline() {
 
   useFrame(() => {
     const p = clamp01(progress);
+    // M-2: reduced motion — static camera per zone, no spline drift
+    if (altMode) {
+      const zone = p < 0.25 ? 'body' : p < 0.6 ? 'mind' : p < 0.9 ? 'spirit' : 'summit';
+      camera.position.copy(WAYPOINTS[zone]);
+      camera.lookAt(LOOKS[zone]);
+      return;
+    }
     let a, b, la, lb, t;
     if (p < 0.25)      { a = WAYPOINTS.body;   b = WAYPOINTS.mind;   la = LOOKS.body;   lb = LOOKS.mind;   t = p / 0.25; }
     else if (p < 0.6)  { a = WAYPOINTS.mind;   b = WAYPOINTS.spirit; la = LOOKS.mind;   lb = LOOKS.spirit; t = (p - 0.25) / 0.35; }
@@ -36,7 +43,6 @@ export default function CameraSpline() {
     lerpPoint(la, lb, t, look);
     camera.position.copy(pos);
     camera.lookAt(look);
-    if (altMode) camera.position.set(0, 1 + p * 6, 4 - p * 2);
   });
 
   return null;
