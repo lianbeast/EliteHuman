@@ -2,6 +2,7 @@ import { useMemo, useRef } from 'react';
 import { useFrame } from '@react-three/fiber';
 import * as THREE from 'three';
 import ZoneBand from '../three/ZoneBand.jsx';
+import Plaques from '../three/Plaques.jsx';
 
 // Noise-displaced cloud plane — camera settles above it at summit.
 const CLOUD_VERT = `
@@ -38,6 +39,7 @@ function SummitWorld() {
       <ambientLight intensity={0.8} color="#F0C75E" />
       <pointLight position={[0, 9, -2]} intensity={1.5} color="#F0C75E" />
       <CloudLayer />
+      <Plaques />
     </group>
   );
 }
