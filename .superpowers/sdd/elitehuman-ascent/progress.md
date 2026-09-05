@@ -9,3 +9,8 @@ Tasks 3-14: complete (inline execution, plan-verbatim transcription — classifi
 Data seed: complete (commit 19333e0)
 - Ruling: profile scraper (apify/instagram-profile-scraper) hard-caps latestPosts at 12; resultsType param legacy no-op. Switched to apify/instagram-post-scraper (official, $0.18 run) — 103 items, 105 unique posts after parse. tools/scrape.mjs contract unchanged for future re-scrapes.
 - 104/105 images downloaded; 1 dead CDN URL (id 1104386633638093315) — Grid.jsx onError hides missing image. Cost if wrong: one post renders caption-only card.
+Playwright e2e: ENV-BLOCKED (2026-09-05)
+- Ruling: runner wedges pre-test on this machine (npx AND direct cli.js; chrome spawns then dies; zero test output). Not a site defect — manual chrome --headless --dump-dom verified: journey page WebGL renders w/ --enable-unsafe-swiftshader (ascent-meter present), archive renders 105 cards, posts.json + images serve 200. Swiftshader software-GL makes each frame ~100× slower; test timeouts would be unreliable even if runner worked.
+- Config kept (playwright.config.js: channel 'chrome', --no-sandbox, --enable-unsafe-swiftshader, PW_NO_SERVER escape hatch) for CI or a machine with real GPU.
+- Test-code bug fixed while here: smoke.spec.js getByRole('button').first() matched filter chip not post card → locator('article[role="button"]').first().
+- Cost if wrong: e2e unverified on this machine — deploy-time smoke on real host still recommended.

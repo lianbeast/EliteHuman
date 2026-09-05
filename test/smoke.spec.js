@@ -16,7 +16,7 @@ test('journey loads, ascent meter visible, scrolls cleanly', async ({ page }) =>
 test('archive route loads, card opens lightbox', async ({ page }) => {
   await page.goto('/archive');
   await expect(page.getByRole('heading', { name: /THE 105 MARKS/i })).toBeVisible();
-  const firstCard = page.getByRole('button').first();
+  const firstCard = page.locator('article[role="button"]').first();
   await firstCard.click();
   await expect(page.getByRole('dialog')).toBeVisible();
   await page.keyboard.press('Escape');
