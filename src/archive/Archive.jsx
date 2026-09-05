@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { BASE_URL } from '../lib/base.js';
 import Grid from './Grid.jsx';
 import Lightbox from './Lightbox.jsx';
 import { classifyPillar } from './pillarClassify.js';
@@ -8,7 +9,7 @@ export default function Archive() {
   const [open, setOpen] = useState(null);
 
   useEffect(() => {
-    fetch('/assets/posts.json')
+    fetch(`${BASE_URL}assets/posts.json`)
       .then((r) => r.json())
       .then((d) => setPosts(d.map((p) => ({ ...p, pillar: p.pillar || classifyPillar(p.caption) }))))
       .catch(() => setPosts([]));

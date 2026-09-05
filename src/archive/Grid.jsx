@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { BASE_URL } from '../lib/base.js';
 
 export default function Grid({ posts, onOpen }) {
   const [filter, setFilter] = useState('ALL');
@@ -20,7 +21,7 @@ export default function Grid({ posts, onOpen }) {
             onKeyDown={(e) => e.key === 'Enter' && onOpen(p)}
             style={{ background: '#0A0A0C', border: '1px solid #1C1D22', padding: '1rem', cursor: 'pointer', fontFamily: 'var(--font-quote)' }}>
             <div style={{ aspectRatio: '1', background: '#1C1D22', overflow: 'hidden', marginBottom: '0.75rem' }}>
-              <img src={`/assets/${p.img}`} alt={p.caption.slice(0, 80)} loading="lazy"
+              <img src={`${BASE_URL}assets/${p.img}`} alt={p.caption.slice(0, 80)} loading="lazy"
                 onError={(e) => { e.currentTarget.style.display = 'none'; }}
                 style={{ width: '100%', height: '100%', objectFit: 'cover', filter: 'grayscale(100%) contrast(1.1)', transition: 'filter 0.3s' }}
                 onMouseEnter={(e) => (e.currentTarget.style.filter = 'grayscale(0%) sepia(0.3)')}

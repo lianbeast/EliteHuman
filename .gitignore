@@ -1,8 +1,6 @@
 node_modules/
 dist/
 .vite/
-public/assets/img/
-public/assets/posts.json
 playwright-report/
 test-results/
 .superpowers/

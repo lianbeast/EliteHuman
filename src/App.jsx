@@ -7,17 +7,25 @@ import Preloader from './journey/Preloader.jsx';
 import DOMOverlays from './journey/DOMOverlays.jsx';
 import Archive from './archive/Archive.jsx';
 
+const BASE = import.meta.env.BASE_URL; // '/EliteHuman/' on Pages, '/' local
+const routeOf = (url) => {
+  let p = url.startsWith(BASE) ? url.slice(BASE.length - 1) : url; // strip base, keep leading /
+  if (p !== '/' && p.endsWith('/')) p = p.slice(0, -1);
+  return p || '/';
+};
+
 function useRoute() {
-  const [path, setPath] = useState(window.location.pathname);
+  const [path, setPath] = useState(() => routeOf(window.location.pathname));
   useEffect(() => {
-    const onPop = () => setPath(window.location.pathname);
+    const onPop = () => setPath(routeOf(window.location.pathname));
     window.addEventListener('popstate', onPop);
     const onClick = (e) => {
       const a = e.target.closest('a');
-      if (a && a.getAttribute('href')?.startsWith('/')) {
+      const href = a?.getAttribute('href');
+      if (a && href?.startsWith('/') && !href.startsWith('//')) {
         e.preventDefault();
-        window.history.pushState({}, '', a.getAttribute('href'));
-        setPath(a.getAttribute('href'));
+        window.history.pushState({}, '', BASE + href.slice(1));
+        setPath(href);
       }
     };
     window.addEventListener('click', onClick);
