@@ -1,0 +1,5 @@
+*,*::before,*::after { box-sizing: border-box; }
+html,body { margin: 0; padding: 0; }
+body { background: var(--obsidian); color: var(--chalk); font-family: var(--font-mono); min-height: 100dvh; }
+a { color: inherit; }
+img,canvas { display: block; max-width: 100%; }
