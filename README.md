@@ -36,5 +36,5 @@ Upload the contents of `./dist`.
 
 ## Spec
 
-- Design: docs/superpowers/specs/2026-09-04-elitehuman-3d-ascent-site-design.md
+- Design: docs/superpowers/specs/2026-09-06-elitehuman-spatial-dashboard-design.md
 - Plan:  docs/superpowers/plans/2026-09-04-elitehuman-3d-ascent-site.md
