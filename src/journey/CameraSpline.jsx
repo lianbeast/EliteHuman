@@ -3,12 +3,14 @@ import { useFrame, useThree } from '@react-three/fiber';
 import * as THREE from 'three';
 import { useProgress } from '../lib/progressContext.jsx';
 import { clamp01 } from '../lib/easing.js';
+import { BANDS } from '../lib/bands.js';
 
 const WAYPOINTS = {
-  body:   new THREE.Vector3(0, 0.4, 4),       // bench-press POV looking up at bar
-  mind:   new THREE.Vector3(0, 1.5, 6),
-  spirit: new THREE.Vector3(0, 4, 5),
-  summit: new THREE.Vector3(0, 7, 0),
+  bodyClose: new THREE.Vector3(0, 0.9, 2.2), // hero cold-open: low, behind bar
+  body:      new THREE.Vector3(0, 0.4, 4),
+  mind:      new THREE.Vector3(0, 1.5, 6),
+  spirit:    new THREE.Vector3(0, 4, 5),
+  summit:    new THREE.Vector3(0, 7, 0),
 };
 const LOOKS = {
   body:   new THREE.Vector3(0, 1.2, 0),
@@ -17,7 +19,7 @@ const LOOKS = {
   summit: new THREE.Vector3(0, 8, -5),
 };
 
-function lerpPoint(a, b, t, out) { out.lerpVectors(a, b, t); return out; }
+const [B1, B2, B3] = BANDS; // 0.15 / 0.40 / 0.70
 
 export default function CameraSpline() {
   const { progress, altMode } = useProgress();
@@ -29,18 +31,19 @@ export default function CameraSpline() {
     const p = clamp01(progress);
     // M-2: reduced motion — static camera per zone, no spline drift
     if (altMode) {
-      const zone = p < 0.25 ? 'body' : p < 0.6 ? 'mind' : p < 0.9 ? 'spirit' : 'summit';
+      const zone = p < B1 ? 'body' : p < B2 ? 'mind' : p < B3 ? 'spirit' : 'summit';
       camera.position.copy(WAYPOINTS[zone]);
       camera.lookAt(LOOKS[zone]);
       return;
     }
     let a, b, la, lb, t;
-    if (p < 0.25)      { a = WAYPOINTS.body;   b = WAYPOINTS.mind;   la = LOOKS.body;   lb = LOOKS.mind;   t = p / 0.25; }
-    else if (p < 0.6)  { a = WAYPOINTS.mind;   b = WAYPOINTS.spirit; la = LOOKS.mind;   lb = LOOKS.spirit; t = (p - 0.25) / 0.35; }
-    else if (p < 0.9)  { a = WAYPOINTS.spirit; b = WAYPOINTS.summit; la = LOOKS.spirit; lb = LOOKS.summit; t = (p - 0.6) / 0.3; }
-    else               { a = WAYPOINTS.summit; b = WAYPOINTS.summit; la = LOOKS.summit; lb = LOOKS.summit; t = 0; }
-    lerpPoint(a, b, t, pos);
-    lerpPoint(la, lb, t, look);
+    if (p < 0.06)       { a = WAYPOINTS.bodyClose; b = WAYPOINTS.body;   la = LOOKS.body;   lb = LOOKS.body;   t = p / 0.06; } // hero pull-back
+    else if (p < B1)    { a = WAYPOINTS.body;     b = WAYPOINTS.mind;    la = LOOKS.body;   lb = LOOKS.mind;   t = (p - 0.06) / (B1 - 0.06); }
+    else if (p < B2)    { a = WAYPOINTS.mind;      b = WAYPOINTS.spirit; la = LOOKS.mind;   lb = LOOKS.spirit; t = (p - B1) / (B2 - B1); }
+    else if (p < B3)    { a = WAYPOINTS.spirit;    b = WAYPOINTS.summit; la = LOOKS.spirit; lb = LOOKS.summit; t = (p - B2) / (B3 - B2); }
+    else                { a = WAYPOINTS.summit;    b = WAYPOINTS.summit; la = LOOKS.summit; lb = LOOKS.summit; t = 0; }
+    pos.lerpVectors(a, b, t);
+    look.lerpVectors(la, lb, t);
     camera.position.copy(pos);
     camera.lookAt(look);
   });

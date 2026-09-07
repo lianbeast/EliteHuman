@@ -5,6 +5,7 @@ import Journey from './journey/Journey.jsx';
 import AscentMeter from './journey/AscentMeter.jsx';
 import Preloader from './journey/Preloader.jsx';
 import DOMOverlays from './journey/DOMOverlays.jsx';
+import Outro from './sections/Outro.jsx';
 import Archive from './archive/Archive.jsx';
 
 const BASE = import.meta.env.BASE_URL; // '/EliteHuman/' on Pages, '/' local
@@ -50,7 +51,7 @@ function Spacer() {
   return (
     <div style={altMode
       ? { height: '400vh', zIndex: 1, pointerEvents: 'none', scrollSnapType: 'y mandatory' }
-      : { height: '2500vh', position: 'relative', zIndex: 1, pointerEvents: 'none' }}
+      : { height: '8000vh', position: 'relative', zIndex: 1, pointerEvents: 'none' }}
       aria-hidden="true">
       {altMode && [0, 1, 2, 3].map((i) => (
         <div key={i} style={{ height: '100vh', scrollSnapAlign: 'start' }} />
@@ -80,6 +81,13 @@ export default function App() {
       <Journey onReady={() => setReady(true)} />
       <AscentMeter />
       <DOMOverlays />
+      <Outro />
+      {/* fixed gold-ring logo mark */}
+      <a href="https://www.instagram.com/elitehuman/" target="_blank" rel="noreferrer" aria-label="EliteHuman Instagram"
+        style={{ position: 'fixed', top: '1.5rem', left: '1.5rem', zIndex: 20, lineHeight: 0 }}>
+        <img src={`${BASE}assets/img/profile-hd.jpg`} alt="EliteHuman" width={44} height={44}
+          style={{ borderRadius: '50%', boxShadow: '0 0 0 1.5px #C9A227, 0 0 18px rgba(201,162,39,0.35)' }} />
+      </a>
       {/* scroll spacer — 4 zone sections enable scroll-snap under reduced motion */}
       <Spacer />
       {!ready && <Preloader onDone={() => setReady(true)} />}

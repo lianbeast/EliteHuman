@@ -1,0 +1,14 @@
+.rv-word { display: inline-block; overflow: hidden; vertical-align: bottom; }
+.rv-word > span {
+  display: inline-block;
+  transform: translateY(110%) scale(0.98); filter: blur(6px); opacity: 0;
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), filter 0.6s, opacity 0.6s;
+}
+.rv-in .rv-word > span { transform: translateY(0) scale(1); filter: blur(0); opacity: 1; }
+.rv-eyebrow { transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.5s; transform: translateX(-1.5rem); opacity: 0.4; }
+.rv-in .rv-eyebrow { transform: translateX(0); opacity: 1; }
+@media (prefers-reduced-motion: reduce) {
+  .rv-word > span { transition: opacity 0.3s; transform: none; filter: none; }
+  .rv-in .rv-word > span { opacity: 1; }
+  .rv-eyebrow { transition: opacity 0.3s; transform: none; }
+}

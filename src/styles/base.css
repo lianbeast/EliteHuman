@@ -6,3 +6,5 @@
 @import '@fontsource/space-mono/700.css';
 @import './reset.css';
 @import './tokens.css';
+@import './reveal.css';
+@import './archive.css';
