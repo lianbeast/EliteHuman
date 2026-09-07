@@ -3,6 +3,10 @@
 Scroll-driven 3D immersive brand site. Body → Mind → Spirit → Apex. Plus a
 browsable archive of all 105 @elitehuman Instagram posts.
 
+## Live
+
+- https://lianbeast.github.io/EliteHuman/ (GitHub Pages, deploys from `main`)
+
 ## Stack
 
 Vite · React 18 · @react-three/fiber · drei · postprocessing · Lenis · Vitest · Playwright
