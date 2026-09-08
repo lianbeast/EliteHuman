@@ -1,7 +1,7 @@
 import React, { useRef, useMemo } from 'react';
 import { useFrame } from '@react-three/fiber';
 import * as THREE from 'three';
-import MerchMonolith from './components/MerchMonolith';
+import MerchMonolith from './MerchMonolith';
 import HolographicPanel from './components/HolographicPanel';
 
 const NODES = [

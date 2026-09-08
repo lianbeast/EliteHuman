@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { useProgress } from '../lib/progressContext.jsx';
 import ProgressChart from './components/ProgressChart.jsx';
 import CalendarIsland from './components/CalendarIsland.jsx';
-import './glass.css';
+import '../styles/glass.css';
 
 export default function Overlay() {
   const containerRef = useRef(null);
