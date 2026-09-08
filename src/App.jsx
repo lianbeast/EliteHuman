@@ -7,6 +7,7 @@ import Preloader from './journey/Preloader.jsx';
 import DOMOverlays from './journey/DOMOverlays.jsx';
 import Outro from './sections/Outro.jsx';
 import Archive from './archive/Archive.jsx';
+import Dashboard from './dashboard/index.jsx';
 
 const BASE = import.meta.env.BASE_URL; // '/EliteHuman/' on Pages, '/' local
 const routeOf = (url) => {
@@ -65,6 +66,7 @@ export default function App() {
   const path = useRoute();
 
   if (path === '/archive') return <ProgressProvider><Archive /></ProgressProvider>;
+  if (path === '/') return <ProgressProvider><Dashboard /></ProgressProvider>;
 
   return (
     <ProgressProvider>
