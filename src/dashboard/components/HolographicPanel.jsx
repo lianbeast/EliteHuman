@@ -43,7 +43,6 @@ export default function HolographicPanel({ position, label, content }) {
         position={[0, 0.7, 0.1]}
         fontSize={0.2}
         color="#3EF0D8"
-        font="https://fonts.gstatic.com/s/bigshouldersdisplay/v11/gc29S_D_S_Lg7X6I6P8aYI6lW_A.woff"
       >
         {label}
       </Text>

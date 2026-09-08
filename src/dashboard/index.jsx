@@ -24,17 +24,15 @@ export default function Dashboard() {
       >
         <color attach="background" args={['#0A0A0C']} />
 
-        <Suspense fallback={null}>
+        <Suspense fallback={<mesh><boxGeometry /><meshStandardMaterial color="cyan" /></mesh>}>
           <PerspectiveCamera makeDefault position={[0, 0, 8]} />
 
           {/* Global lighting for the 3D volume */}
-          <ambientLight intensity={0.2} />
-          <pointLight position={[10, 10, 10]} intensity={1} color="#3EF0D8" />
-          <pointLight position={[-10, -10, -10]} intensity={0.5} color="#3EF0D8" />
+          <ambientLight intensity={0.5} />
+          <pointLight position={[10, 10, 10]} intensity={1.5} color="#3EF0D8" />
+          <pointLight position={[-10, -10, -10]} intensity={1} color="#3EF0D8" />
 
           <Cluster />
-
-          <Environment preset="city" />
         </Suspense>
 
         <OrbitControls
