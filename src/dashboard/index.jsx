@@ -1,29 +1,52 @@
-import React, { useEffect, useRef } from 'react';
+import React, { Suspense, useState } from 'react';
 import { Canvas } from '@react-three/fiber';
-import Scene from './Scene.jsx';
-import Overlay from './Overlay.jsx';
+import { OrbitControls, PerspectiveCamera, Environment, Float } from '@react-three/drei';
+import Cluster from './Cluster';
+import Overlay from './Overlay';
+import { useProgress } from '../lib/progressContext.jsx';
 
 export default function Dashboard() {
-  const pointerRef = useRef({ x: 0, y: 0 });
-
-  useEffect(() => {
-    const handleMove = (e) => {
-      pointerRef.current.x = (e.clientX / window.innerWidth) * 2 - 1;
-      pointerRef.current.y = (e.clientY / window.innerHeight) * 2 - 1;
-    };
-    window.addEventListener('mousemove', handleMove);
-    return () => window.removeEventListener('mousemove', handleMove);
-  }, []);
+  const { altMode } = useProgress();
 
   return (
-    <div style={{ position: 'relative', width: '100vw', height: '100vh', overflow: 'hidden', background: 'var(--obsidian)' }}>
+    <div style={{ width: '100vw', height: '100vh', background: 'var(--obsidian)', position: 'relative', overflow: 'hidden' }}>
       <Canvas
-        dpr={[1.5, 2]}
-        camera={{ position: [0, 0, 5], fov: 50 }}
-        style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', zIndex: 0 }}
+        shadows
+        dpr={[1, 2]}
+        camera={{ position: [0, 0, 8], fov: 45 }}
+        gl={{
+          antialias: true,
+          alpha: true,
+          stencil: false,
+          depth: true,
+          powerPreference: 'high-performance'
+        }}
       >
-        <Scene pointerOffset={pointerRef.current} />
+        <color attach="background" args={['#0A0A0C']} />
+
+        <Suspense fallback={null}>
+          <PerspectiveCamera makeDefault position={[0, 0, 8]} />
+
+          {/* Global lighting for the 3D volume */}
+          <ambientLight intensity={0.2} />
+          <pointLight position={[10, 10, 10]} intensity={1} color="#3EF0D8" />
+          <pointLight position={[-10, -10, -10]} intensity={0.5} color="#3EF0D8" />
+
+          <Cluster />
+
+          <Environment preset="city" />
+        </Suspense>
+
+        <OrbitControls
+          enablePan={false}
+          enableZoom={false}
+          rotateSpeed={0.4}
+          maxPolarAngle={Math.PI / 1.5}
+          minPolarAngle={Math.PI / 3}
+        />
       </Canvas>
+
+      {/* 2D HUD Overlay */}
       <Overlay />
     </div>
   );
