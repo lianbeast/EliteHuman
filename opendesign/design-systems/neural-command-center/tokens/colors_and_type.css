@@ -1,0 +1,37 @@
+:root {
+  /* Raw Palette */
+  --raw-obsidian: #0A0A0C;
+  --raw-iron: #1C1D22;
+  --raw-chalk: #E8E4DC;
+  --raw-cyan: #3EF0D8;
+  --raw-ember: #C9A227;
+
+  /* Semantic Colors */
+  --bg-primary: var(--raw-obsidian);
+  --bg-secondary: var(--raw-iron);
+  --fg-primary: var(--raw-chalk);
+  --accent-primary: var(--raw-cyan);
+  --accent-secondary: var(--raw-ember);
+
+  --surface-glass: rgba(255, 255, 255, 0.03);
+  --border-glass: rgba(255, 255, 255, 0.08);
+  --glow-cyan: rgba(62, 240, 216, 0.5);
+
+  /* Typography */
+  --font-display: 'Big Shoulders Display', 'Impact', sans-serif;
+  --font-mono: 'Space Mono', ui-monospace, monospace;
+  --font-body: 'Spectral', Georgia, serif;
+
+  --text-h1: var(--font-display);
+  --text-h2: var(--font-display);
+  --text-body: var(--font-body);
+  --text-mono: var(--font-mono);
+
+  /* Spacing Scale */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 1rem;
+  --space-4: 2rem;
+  --space-5: 4rem;
+  --space-6: 8rem;
+}

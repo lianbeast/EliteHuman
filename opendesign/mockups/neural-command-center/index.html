@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Neural Command Center | Mockup</title>
+  <link rel="stylesheet" href="../design-systems/neural-command-center/tokens/colors_and_type.css">
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: var(--bg-primary);
+      color: var(--fg-primary);
+      font-family: var(--text-body);
+      height: 100vh;
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .viewport {
+      position: relative;
+      width: 100vw;
+      height: 100vh;
+      perspective: 1200px;
+      display: grid;
+      grid-template-rows: 80px 1fr 200px;
+      padding: var(--space-4);
+      box-sizing: border-box;
+      gap: var(--space-4);
+    }
+
+    .glass {
+      background: var(--surface-glass);
+      backdrop-filter: blur(25px) saturate(180%);
+      border: 1px solid var(--border-glass);
+      border-radius: 24px;
+      box-shadow: inset 1px 1px 0 rgba(255, 255, 255, 0.1), 0 8px 32px rgba(0, 0, 0, 0.3);
+      transition: transform 0.3s ease-out, box-shadow 0.3s ease;
+    }
+
+    .glass:hover {
+      box-shadow: 0 0 20px var(--glow-cyan);
+      border-color: var(--accent-primary);
+    }
+
+    .glass-content {
+      padding: var(--space-4);
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      box-sizing: border-box;
+    }
+
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      height: 100%;
+      padding: 0 var(--space-4);
+    }
+
+    .brand {
+      font-family: var(--text-h1);
+      font-size: 1.5rem;
+      color: var(--accent-primary);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+
+    .system-status {
+      font-family: var(--text-mono);
+      font-size: 0.8rem;
+      display: flex;
+      gap: var(--space-3);
+    }
+
+    .status-item { opacity: 0.7; }
+    .status-synced { color: var(--accent-primary); }
+
+    .main-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-4);
+      pointer-events: auto;
+    }
+
+    .panel-header {
+      font-family: var(--text-h2);
+      font-size: 1.2rem;
+      color: var(--accent-primary);
+      text-transform: uppercase;
+      margin-bottom: var(--space-3);
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .metric-row {
+      display: flex;
+      gap: var(--space-2);
+      font-family: var(--text-mono);
+      font-size: 0.7rem;
+    }
+
+    .metric-pill {
+      background: rgba(62, 240, 216, 0.1);
+      padding: 2px 8px;
+      border-radius: 4px;
+      border: 1px solid rgba(62, 240, 216, 0.3);
+      color: var(--accent-primary);
+    }
+
+    .hero-action {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      gap: var(--space-3);
+    }
+
+    .hero-label {
+      font-family: var(--text-mono);
+      font-size: 0.8rem;
+      opacity: 0.6;
+      text-transform: uppercase;
+    }
+
+    .btn-primary {
+      background: var(--accent-primary);
+      color: var(--bg-primary);
+      border: none;
+      border-radius: 8px;
+      padding: 1rem 2rem;
+      font-family: var(--text-h1);
+      font-weight: bold;
+      text-transform: uppercase;
+      cursor: pointer;
+      box-shadow: 0 0 15px var(--accent-primary);
+      transition: transform 0.1s active;
+    }
+
+    .btn-primary:active { transform: scale(0.95); }
+
+    .archive-link {
+      color: var(--accent-primary);
+      text-decoration: none;
+      font-family: var(--text-mono);
+      font-size: 0.8rem;
+      border: 1px solid var(--accent-primary);
+      padding: 0.5rem 1.5rem;
+      border-radius: 8px;
+      display: inline-block;
+      transition: background 0.2s;
+    }
+
+    .archive-link:hover {
+      background: rgba(62, 240, 216, 0.1);
+    }
+
+    .timeline-container {
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      height: 100%;
+      font-family: var(--text-mono);
+      font-size: 0.8rem;
+    }
+
+    .timeline-day {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: var(--space-2);
+      opacity: 0.4;
+    }
+
+    .timeline-day.active {
+      opacity: 1;
+      color: var(--accent-primary);
+    }
+
+    .dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: white;
+    }
+
+    .active .dot {
+      background: var(--accent-primary);
+      box-shadow: 0 0 8px var(--accent-primary);
+    }
+
+    .hologram-hint {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+      z-index: -1;
+      text-align: center;
+      opacity: 0.2;
+    }
+
+    .hologram-hint h1 {
+      font-family: var(--text-h1);
+      font-size: 12rem;
+      color: var(--accent-primary);
+      margin: 0;
+      text-transform: uppercase;
+      filter: blur(2px);
+    }
+  </style>
+</head>
+<body>
+  <div class="hologram-hint">
+    <h1>SPATIAL</h1>
+  </div>
+
+  <div class="viewport">
+    <header class="glass">
+      <div class="header">
+        <div class="brand">EliteHuman // Spatial OS v1.0</div>
+        <div class="system-status">
+          <span class="status-item">CAP 44%</span>
+          <span class="status-item">09:39:40 AM</span>
+          <span class="status-item status-synced">● SYNCED</span>
+        </div>
+      </div>
+    </header>
+
+    <main class="main-grid">
+      <section class="glass">
+        <div class="glass-content">
+          <div class="panel-header">
+            BIOMETRICS
+            <div class="metric-row">
+              <span class="metric-pill">Squat 140kg</span>
+              <span class="metric-pill">Bench 100kg</span>
+              <span class="metric-pill">Dead 180kg</span>
+            </div>
+          </div>
+          <div class="hero-action">
+            <div class="hero-label">Ready for next session</div>
+            <button class="btn-primary">Log Daily Win</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="glass">
+        <div class="glass-content">
+          <div class="panel-header">Merch Store</div>
+          <div style="opacity: 0.6; font-size: 0.9rem; margin-bottom: var(--space-3);">
+            Explore EliteHuman gear. High-performance apparel for the obsessive.
+          </div>
+          <div style="display: flex; justify-content: center; align-items: center; flex: 1;">
+            <a href="#" class="archive-link">VIEW ARCHIVE →</a>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="glass">
+      <div class="glass-content">
+        <div class="timeline-container">
+          <div class="timeline-day"><span>Mon</span><div class="dot"></div></div>
+          <div class="timeline-day"><span>Tue</span><div class="dot"></div></div>
+          <div class="timeline-day"><span>Wed</span><div class="dot"></div></div>
+          <div class="timeline-day"><span>Thu</span><div class="dot"></div></div>
+          <div class="timeline-day"><span>Fri</span><div class="dot"></div></div>
+          <div class="timeline-day"><span>Sat</span><div class="dot"></div></div>
+          <div class="timeline-day active"><span>Sun</span><div class="dot"></div></div>
+        </div>
+      </div>
+    </footer>
+  </div>
+</body>
+</html>

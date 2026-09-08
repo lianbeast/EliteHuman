@@ -1,0 +1,32 @@
+{
+  "generated": "2026-09-08T10:00:00Z",
+  "sections": [
+    {
+      "id": "mockups",
+      "label": "Mockups",
+      "groups": [
+        {
+          "slug": "neural-command-center",
+          "files": [
+            { "label": "Main Interface", "path": "mockups/neural-command-center/index.html" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "design-systems",
+      "label": "Design Systems",
+      "groups": [
+        {
+          "slug": "neural-command-center",
+          "files": [
+            { "label": "README", "path": "design-systems/neural-command-center/README.md" },
+            { "label": "Tokens", "path": "design-systems/neural-command-center/tokens/colors_and_type.css" },
+            { "label": "Voice & Tone", "path": "design-systems/neural-command-center/brand/voice-and-tone.md" },
+            { "label": "Style Notes", "path": "design-systems/neural-command-center/brand/style-notes.md" }
+          ]
+        }
+      ]
+    }
+  ]
+}
