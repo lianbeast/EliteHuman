@@ -62,7 +62,7 @@ export default function Overlay() {
       boxSizing: 'border-box'
     }}>
       <div className="glass" style={{ pointerEvents: 'auto', height: '64px', display: 'flex', alignItems: 'center', padding: '0 var(--space-4)', justifyContent: 'space-between' }}>
-        <div className="glass-header" style={{ margin: 0, fontSize: '1.2rem' }}>ELITEHUMAN // SPATIAL OS v1.0</div>
+        <div className="glass-header" style={{ margin: 0, fontSize: '1.2rem', cursor: 'pointer' }} onClick={() => window.history.pushState({}, '', '/journey')}>ELITEHUMAN // SPATIAL OS v1.0</div>
         <div style={{ display: 'flex', gap: 'var(--space-3)', fontFamily: 'var(--font-mono)', fontSize: '0.8rem' }}>
           <span>CAP {Math.floor(Math.random() * 100)}%</span>
           <span>{new Date().toLocaleTimeString()}</span>
@@ -93,7 +93,18 @@ export default function Overlay() {
         <div className="glass" style={{ position: 'relative' }}>
            <div className="glass-content">
              <div className="glass-header">MERCH STORE</div>
-             <div style={{ color: 'var(--chalk)', opacity: 0.6, fontSize: '0.9rem' }}>Focusing monolith...</div>
+             <div style={{ color: 'var(--chalk)', opacity: 0.6, fontSize: '0.9rem', marginBottom: 'var(--space-3)' }}>Explore EliteHuman gear.</div>
+             <a href="/archive" style={{
+               color: 'var(--cyan)',
+               textDecoration: 'none',
+               fontFamily: 'var(--font-mono)',
+               fontSize: '0.8rem',
+               border: '1px solid var(--cyan)',
+               padding: '0.5rem 1rem',
+               borderRadius: '8px',
+               display: 'inline-block',
+               textAlign: 'center'
+             }}>VIEW ARCHIVE →</a>
            </div>
         </div>
       </div>
