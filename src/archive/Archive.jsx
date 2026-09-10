@@ -24,12 +24,12 @@ export default function Archive() {
   };
 
   return (
-    <div style={{ minHeight: '100dvh', padding: '8vh 6vw', color: '#E8E4DC' }}>
-      <a href="/" style={{ fontFamily: 'var(--font-mono)', fontSize: '0.8rem', color: '#C9A227', letterSpacing: '0.2em', textDecoration: 'none' }}>← BACK TO ASCENT</a>
-      <h1 style={{ fontFamily: 'var(--font-display)', fontWeight: 900, fontSize: 'clamp(3rem, 8vw, 6rem)', margin: '1rem 0 0.5rem', letterSpacing: '0.02em' }}>
+    <div style={{ minHeight: '100dvh', padding: '8vh 6vw', color: 'var(--ink)' }}>
+      <a href="/" style={{ fontFamily: 'var(--font-mono)', fontSize: '0.75rem', color: 'var(--accent)', letterSpacing: '0.15em', textDecoration: 'none' }}>← BACK TO THE JOURNAL</a>
+      <h1 style={{ fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: 'clamp(3rem, 8vw, 6rem)', margin: '1rem 0 0.5rem', letterSpacing: '0.02em' }}>
         THE 105 MARKS
       </h1>
-      <p style={{ fontFamily: 'var(--font-quote)', color: 'rgba(232,228,220,0.7)', maxWidth: '40rem', marginBottom: '3rem' }}>
+      <p style={{ fontFamily: 'var(--font-body)', color: 'var(--ink-soft)', maxWidth: '40rem', marginBottom: '3rem' }}>
         Every post from the @elitehuman archive — body, mind, spirit.
       </p>
       <Grid posts={posts} onOpen={setOpen} filter={filter} onFilter={setFilter} />

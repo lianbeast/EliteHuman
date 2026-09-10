@@ -25,7 +25,7 @@ export default function Grid({ posts, onOpen, filter, onFilter }) {
         {['ALL', 'IRON', 'MIND', 'SPIRIT'].map((f) => (
           <button key={f} className="arc-pill" onClick={() => onFilter(f)} aria-pressed={filter === f}>{f}</button>
         ))}
-        <span style={{ marginLeft: 'auto', color: 'rgba(232,228,220,0.5)', fontSize: '0.75rem' }}>{list.length} MARKS</span>
+        <span style={{ marginLeft: 'auto', color: 'var(--ink-soft)', fontSize: '0.75rem' }}>{list.length} MARKS</span>
       </div>
       <div key={filter} className="arc-grid arc-fade">
         {list.map((p) => (
@@ -33,13 +33,13 @@ export default function Grid({ posts, onOpen, filter, onFilter }) {
             onClick={() => onOpen(p)} tabIndex={0} role="button"
             onKeyDown={(e) => e.key === 'Enter' && onOpen(p)}
             style={{ fontFamily: 'var(--font-quote)' }}>
-            <div style={{ aspectRatio: '1', background: '#1C1D22', overflow: 'hidden', marginBottom: '0.75rem' }}>
+            <div style={{ aspectRatio: '1', background: 'var(--paper)', overflow: 'hidden', marginBottom: '0.75rem' }}>
               <img className="arc-img" src={`${BASE_URL}assets/${p.img}`} alt={p.caption.slice(0, 80)} loading="lazy"
                 onError={(e) => { e.currentTarget.style.display = 'none'; }} />
             </div>
-            <div style={{ fontFamily: 'var(--font-mono)', fontSize: '0.65rem', color: '#C9A227', letterSpacing: '0.2em' }}>{p.pillar}</div>
-            <p style={{ fontSize: '0.95rem', color: '#E8E4DC', margin: '0.25rem 0 0.5rem', lineHeight: 1.3, display: '-webkit-box', WebkitLineClamp: 3, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>{p.caption}</p>
-            <div style={{ fontFamily: 'var(--font-mono)', fontSize: '0.7rem', color: 'rgba(232,228,220,0.5)' }}>{new Date(p.date).toLocaleDateString()}</div>
+            <div style={{ fontFamily: 'var(--font-mono)', fontSize: '0.65rem', color: 'var(--accent)', letterSpacing: '0.2em' }}>{p.pillar}</div>
+            <p style={{ fontSize: '0.95rem', color: 'var(--ink)', margin: '0.25rem 0 0.5rem', lineHeight: 1.3, display: '-webkit-box', WebkitLineClamp: 3, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>{p.caption}</p>
+            <div style={{ fontFamily: 'var(--font-mono)', fontSize: '0.7rem', color: 'var(--ink-soft)' }}>{new Date(p.date).toLocaleDateString()}</div>
           </article>
         ))}
       </div>

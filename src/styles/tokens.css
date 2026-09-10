@@ -1,12 +1,11 @@
 :root {
-  --obsidian: #0A0A0C;
-  --iron: #1C1D22;
-  --chalk: #E8E4DC;
-  --ember: #C9A227;
-  --solar: #F0C75E;
-  --cyan: #3EF0D8;
-  --font-display: 'Big Shoulders Display', 'Impact', sans-serif;
-  --font-quote: 'Spectral', Georgia, serif;
+  --paper: #F7F4EE;
+  --ink: #141412;
+  --ink-soft: rgba(20, 20, 18, 0.6);
+  --rule: rgba(20, 20, 18, 0.15);
+  --accent: #C0392B;
+  --font-display: 'Spectral', Georgia, serif;
+  --font-body: 'Spectral', Georgia, serif;
   --font-mono: 'Space Mono', ui-monospace, monospace;
   --space-1: 0.25rem;
   --space-2: 0.5rem;
@@ -15,3 +14,16 @@
   --space-5: 4rem;
   --space-6: 8rem;
 }
+
+.post-body { line-height: 1.7; font-size: 1.05rem; }
+.post-body h2 {
+  font-family: var(--font-display); font-weight: 700;
+  font-size: 1.6rem; margin: var(--space-4) 0 var(--space-2); line-height: 1.25;
+}
+.post-body p { margin: 0 0 var(--space-3); }
+.post-body ul, .post-body ol { margin: 0 0 var(--space-3); padding-left: 1.5rem; }
+.post-body li { margin-bottom: var(--space-1); }
+.post-body strong { font-weight: 700; }
+.post-body em { font-style: italic; }
+
+.post-link:hover h2 { color: var(--accent); }
