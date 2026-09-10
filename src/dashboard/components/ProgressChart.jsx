@@ -1,5 +1,12 @@
 import React from 'react';
 
+// deterministic hash → stable "progress %" per lift, no re-render jitter
+const hashPct = (s) => {
+  let h = 0;
+  for (const c of s) h = (h * 31 + c.charCodeAt(0)) >>> 0;
+  return 40 + (h % 60);
+};
+
 export default function ProgressChart({ liftName }) {
   return (
     <div style={{
@@ -26,7 +33,7 @@ export default function ProgressChart({ liftName }) {
           left: 0,
           top: 0,
           bottom: 0,
-          width: `${Math.random() * 60 + 40}%`,
+          width: `${hashPct(liftName)}%`,
           background: 'var(--cyan)',
           boxShadow: '0 0 5px var(--cyan)'
         }} />

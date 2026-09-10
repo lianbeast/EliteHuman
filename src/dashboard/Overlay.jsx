@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { useProgress } from '../lib/progressContext.jsx';
 import ProgressChart from './components/ProgressChart.jsx';
 import CalendarIsland from './components/CalendarIsland.jsx';
@@ -8,6 +8,15 @@ export default function Overlay() {
   const containerRef = useRef(null);
   const { altMode } = useProgress();
   const [isPeak, setIsPeak] = useState(false);
+  const [clock, setClock] = useState(() => new Date());
+
+  // HUD telemetry: tick the clock, keep render pure (no Date/random during render)
+  useEffect(() => {
+    const t = setInterval(() => setClock(new Date()), 1000);
+    return () => clearInterval(t);
+  }, []);
+  const clockTime = clock.toLocaleTimeString();
+  const capacity = useMemo(() => 62 + (Math.floor(Date.now() / 3600e3) % 30), []);
 
   // Pointer state held in ref to avoid React re-renders
   const mouse = useRef({ x: 0, y: 0, currentX: 0, currentY: 0 });
@@ -76,20 +85,23 @@ export default function Overlay() {
         boxShadow: isPeak ? '0 0 40px var(--cyan)' : 'none',
         transition: 'box-shadow 0.3s ease'
       }}>
-        <div className="glass-header" style={{ margin: 0, fontSize: '1.2rem', cursor: 'pointer' }} onClick={() => window.history.pushState({}, '', '/journey')}>ELITEHUMAN // SPATIAL OS v1.0</div>
+        <a
+          className="glass-header"
+          href="/journey"
+          style={{ margin: 0, fontSize: '1.2rem', cursor: 'pointer', textDecoration: 'none' }}
+        >ELITEHUMAN // SPATIAL OS v1.0</a>
         <div style={{ display: 'flex', gap: 'var(--space-3)', fontFamily: 'var(--font-mono)', fontSize: '0.8rem' }}>
-          <span>CAP {Math.floor(Math.random() * 100)}%</span>
-          <span>{new Date().toLocaleTimeString()}</span>
+          <span>CAP {capacity}%</span>
+          <span>{clockTime}</span>
           <span style={{ color: 'var(--cyan)' }}>● SYNCED</span>
         </div>
       </div>
 
-      <div style={{
+      <div ref={containerRef} style={{
         display: 'grid',
         gridTemplateColumns: '1fr 0.9fr',
         gap: 'var(--space-4)',
-        pointerEvents: 'auto',
-        ref: containerRef
+        pointerEvents: 'auto'
       }}>
         <div className="glass" style={{ position: 'relative' }}>
            <div className="glass-content">

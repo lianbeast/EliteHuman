@@ -1,7 +1,8 @@
 import React, { useMemo, useRef } from 'react';
 import { useFrame } from '@react-three/fiber';
-import { RoundedBox, MeshTransmissionMaterial, Float, PerspectiveCamera } from '@react-three/drei';
+import { RoundedBox, Float } from '@react-three/drei';
 import * as THREE from 'three';
+import { BASE_URL } from '../lib/base.js';
 
 export default function MerchMonolith({ pointerOffset = { x: 0, y: 0 } }) {
   const meshRef = useRef();
@@ -10,7 +11,7 @@ export default function MerchMonolith({ pointerOffset = { x: 0, y: 0 } }) {
   const texture = useMemo(() => {
     const loader = new THREE.TextureLoader();
     // Using one of the provided gym images as the product face
-    return loader.load('/assets/img/1092409409410180026.jpg');
+    return loader.load(`${BASE_URL}assets/img/1092409409410180026.jpg`);
   }, []);
 
   useFrame(({ clock }) => {
