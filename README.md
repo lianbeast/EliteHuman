@@ -40,8 +40,8 @@ npx playwright test       # e2e smoke
 npm run build             # static bundle in ./dist
 ```
 
-Shop artwork lives in `public/assets/shop/` — regenerate with
-`node tools/make-shop-art.mjs`. Brand rules: `docs/brand-guidelines.md`.
+Shop photography lives in `public/assets/shop/` (credits in `CREDITS.md`).
+Brand rules: `docs/brand-guidelines.md`.
 
 ## Roadmap
 

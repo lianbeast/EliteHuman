@@ -22,7 +22,7 @@
 - Display: system sans, 800 weight, uppercase, `letter-spacing: -0.02em`, `line-height: 0.95`
 - Mono: Space Mono (labels, prices, sizes — already in repo)
 - Radius: 2px cards, 999px pills for CTAs/sizes. No mixing.
-- Imagery: flat vector clipart in `public/assets/shop/` (off-black bg, bone garments, ember for SPIRIT). Regenerate with `node tools/make-shop-art.mjs`. Swap in real photography per-file when the shoot lands — same filenames, same aspect ratios (products 4:5, hero 5:6, pillars 4:3, craft 9:11).
+- Imagery: real photography in `public/assets/shop/` (credits in `CREDITS.md`). Replace per-file with the real product shoot when it lands — same filenames, portrait crops preferred (cards render 4:5).
 
 ## 3. Voice
 

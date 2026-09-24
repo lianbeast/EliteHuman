@@ -46,7 +46,7 @@ export function HomePage({ route }) {
           </div>
         </div>
         <div className="eh-hero-img">
-          <img src={art('hero.svg')} alt="Elite Human — Wear the Discipline" />
+          <img src={art('hero.jpg')} alt="Elite Human — Wear the Discipline" />
         </div>
       </header>
 
@@ -62,9 +62,9 @@ export function HomePage({ route }) {
         <p className="eh-section-sub">Shop by practice. Body performs, Mind endures, Spirit reminds.</p>
         <div className="eh-pillars">
           {[
-            { k: 'BODY', img: art('pillar-body.svg'), copy: 'Heavy tees, stringers, shorts. Built for sets.' },
-            { k: 'MIND', img: art('pillar-mind.svg'), copy: 'Quiet hoodie, joggers, cap. Daily uniform.' },
-            { k: 'SPIRIT', img: art('pillar-spirit.svg'), copy: 'Numbered Drop 001. From the journal.' },
+            { k: 'BODY', img: art('pillar-body.jpg'), copy: 'Heavy tees, stringers, shorts. Built for sets.' },
+            { k: 'MIND', img: art('pillar-mind.jpg'), copy: 'Quiet hoodie, joggers, cap. Daily uniform.' },
+            { k: 'SPIRIT', img: art('pillar-spirit.jpg'), copy: 'Numbered Drop 001. From the journal.' },
           ].map((c) => (
             <a key={c.k} href={`/shop?pillar=${c.k}`} className="eh-pillar">
               <img src={c.img} alt={c.k} loading="lazy" />
@@ -86,7 +86,7 @@ export function HomePage({ route }) {
 
       <section className="eh-wrap eh-section">
         <div className="eh-split">
-          <img src={art('craft.svg')} alt="Cut and cloth — 240, 380, 480gsm fabrics" loading="lazy" />
+          <img src={art('craft.jpg')} alt="Cut and cloth — 240, 380, 480gsm fabrics" loading="lazy" />
           <div>
             <h2 className="eh-h2">480gsm. Tonal. No noise.</h2>
             <p className="eh-section-sub">
