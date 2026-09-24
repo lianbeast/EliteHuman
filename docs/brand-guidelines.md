@@ -22,7 +22,7 @@
 - Display: system sans, 800 weight, uppercase, `letter-spacing: -0.02em`, `line-height: 0.95`
 - Mono: Space Mono (labels, prices, sizes — already in repo)
 - Radius: 2px cards, 999px pills for CTAs/sizes. No mixing.
-- Imagery: high-contrast B&W training photography, 4:5. Picsum seeds as placeholders until real shoot. TODO: replace `picsum.photos/seed/elite-*` with `public/assets/product-*`.
+- Imagery: flat vector clipart in `public/assets/shop/` (off-black bg, bone garments, ember for SPIRIT). Regenerate with `node tools/make-shop-art.mjs`. Swap in real photography per-file when the shoot lands — same filenames, same aspect ratios (products 4:5, hero 5:6, pillars 4:3, craft 9:11).
 
 ## 3. Voice
 

@@ -1,5 +1,6 @@
 // Elite Human v1 catalog — 14 SKUs across BODY / MIND / SPIRIT.
-// Images are placeholders (picsum seeds). Replace with public/assets/product-* after shoot.
+// Artwork: theme-matched vector clipart in public/assets/shop/ (<slug>.svg).
+// Regenerate with: node tools/make-shop-art.mjs
 // Prices in USD.
 
 export const PILLARS = {
@@ -8,14 +9,14 @@ export const PILLARS = {
   SPIRIT: { label: 'SPIRIT', tagline: 'From the journal. Limited.', color: '#C2410C' },
 };
 
-const img = (seed) => `https://picsum.photos/seed/${seed}/800/1000`;
+const img = (f) => `${import.meta.env.BASE_URL}assets/shop/${f}`;
 
 export const products = [
   {
     slug: 'apex-heavy-tee', name: 'Apex Heavy Tee', pillar: 'BODY',
     price: 58, compareAt: null, badge: 'Best seller',
     sizes: ['S', 'M', 'L', 'XL', 'XXL'], colors: ['Black', 'Bone'],
-    image: img('elite-apex-tee'),
+    image: img('apex-heavy-tee.svg'),
     description: '240gsm heavy jersey. Boxy through the shoulders, true at the waist. Sweat-proof and barbell-proof.',
     philosophy: 'Body is the first promise you keep each day.',
     details: ['240gsm combed cotton', 'Ribbed collar, side-seamed', 'Tonal chest mark, large back number'],
@@ -25,7 +26,7 @@ export const products = [
     slug: 'discipline-stringer', name: 'Discipline Stringer', pillar: 'BODY',
     price: 42, compareAt: null, badge: null,
     sizes: ['S', 'M', 'L', 'XL'], colors: ['Black', 'Charcoal'],
-    image: img('elite-stringer'),
+    image: img('discipline-stringer.svg'),
     description: 'Deep-cut stringer that stays out of the way on presses and pulls.',
     philosophy: 'Show the work, not the logo.',
     details: ['Stretch blend', 'Deep armhole', 'Small back print'],
@@ -35,7 +36,7 @@ export const products = [
     slug: 'train-2in1-short', name: 'Train 2-in-1 Short', pillar: 'BODY',
     price: 68, compareAt: null, badge: 'New',
     sizes: ['S', 'M', 'L', 'XL'], colors: ['Black'],
-    image: img('elite-short'),
+    image: img('train-2in1-short.svg'),
     description: 'Outer shell + liner. Phone pocket that actually holds on squats.',
     philosophy: 'Move without negotiation.',
     details: ['5" inseam', 'Liner + shell', 'Zip phone pocket'],
@@ -45,7 +46,7 @@ export const products = [
     slug: 'compression-long', name: 'Compression Long Sleeve', pillar: 'BODY',
     price: 64, compareAt: null, badge: null,
     sizes: ['S', 'M', 'L', 'XL'], colors: ['Black'],
-    image: img('elite-compression'),
+    image: img('compression-long.svg'),
     description: 'Second-skin base for cold mornings and heavy days.',
     philosophy: 'Warm up like you mean it.',
     details: ['4-way stretch', 'Flatlock seams', 'Thumbholes'],
@@ -55,7 +56,7 @@ export const products = [
     slug: 'performance-zip', name: 'Performance Zip Hoodie', pillar: 'BODY',
     price: 128, compareAt: null, badge: null,
     sizes: ['S', 'M', 'L', 'XL', 'XXL'], colors: ['Black', 'Charcoal'],
-    image: img('elite-perf-zip'),
+    image: img('performance-zip.svg'),
     description: 'Gym-to-street zip. Stretch fleece, hood that stays up on cardio.',
     philosophy: 'Arrive ready. Leave emptied.',
     details: ['Stretch fleece', 'Scuba hood', 'Hidden media pocket'],
@@ -65,7 +66,7 @@ export const products = [
     slug: 'discipline-boxy-tee', name: 'Discipline Boxy Tee', pillar: 'MIND',
     price: 52, compareAt: null, badge: null,
     sizes: ['XS', 'S', 'M', 'L', 'XL'], colors: ['Bone', 'Black', 'Slate'],
-    image: img('elite-boxy-tee'),
+    image: img('discipline-boxy-tee.svg'),
     description: 'The daily uniform. Garment-dyed, pre-shrunk, tonal embroidery.',
     philosophy: 'Fewer decisions. Higher standard.',
     details: ['220gsm garment-dyed', 'Tonal chest embroidery', 'Pre-shrunk'],
@@ -75,7 +76,7 @@ export const products = [
     slug: 'mind-quiet-hoodie', name: 'Mind Quiet Hoodie', pillar: 'MIND',
     price: 128, compareAt: 148, badge: 'Core',
     sizes: ['XS', 'S', 'M', 'L', 'XL', 'XXL'], colors: ['Off-black', 'Bone'],
-    image: img('elite-quiet-hoodie'),
+    image: img('mind-quiet-hoodie.svg'),
     description: '480gsm brushed fleece. No drawcords, no noise. Our flagship.',
     philosophy: 'Quiet uniform. Loud discipline.',
     details: ['480gsm brushed back', 'Hidden kangaroo pocket', 'Tonal puff print'],
@@ -85,7 +86,7 @@ export const products = [
     slug: 'ascend-joggers', name: 'Ascend Joggers', pillar: 'MIND',
     price: 98, compareAt: null, badge: null,
     sizes: ['S', 'M', 'L', 'XL'], colors: ['Off-black', 'Slate'],
-    image: img('elite-joggers'),
+    image: img('ascend-joggers.svg'),
     description: 'Tapered, cuffed, cut to move. Matches the Quiet Hoodie.',
     philosophy: 'Standard issue for deep work and deep sets.',
     details: ['Tapered fit', 'Zip ankles', 'Drawcord + elastic'],
@@ -95,7 +96,7 @@ export const products = [
     slug: 'elite-dad-cap', name: 'Elite Dad Cap', pillar: 'MIND',
     price: 38, compareAt: null, badge: null,
     sizes: ['OS'], colors: ['Black', 'Bone'],
-    image: img('elite-cap'),
+    image: img('elite-dad-cap.svg'),
     description: 'Unstructured 6-panel. Small front embroidery.',
     philosophy: 'Cover the head. Clear the mind.',
     details: ['Cotton twill', 'Metal clasp', 'Tonal embroidery'],
@@ -105,7 +106,7 @@ export const products = [
     slug: 'crew-socks-3pack', name: 'Crew Socks 3-Pack', pillar: 'MIND',
     price: 28, compareAt: null, badge: null,
     sizes: ['M', 'L'], colors: ['Black/Bone mix'],
-    image: img('elite-socks'),
+    image: img('crew-socks-3pack.svg'),
     description: 'Cushioned crew. Arch band stays put on leg day.',
     philosophy: 'Details are discipline.',
     details: ['Cushioned sole', 'Arch support', '3 pairs'],
@@ -115,7 +116,7 @@ export const products = [
     slug: 'trinity-graphic-tee', name: 'Trinity Graphic Tee — Drop 001', pillar: 'SPIRIT',
     price: 68, compareAt: null, badge: 'Limited · 300',
     sizes: ['S', 'M', 'L', 'XL'], colors: ['Black'],
-    image: img('elite-trinity'),
+    image: img('trinity-graphic-tee.svg'),
     description: 'Body · Mind · Spirit back print from the journal. Numbered. Never restocked.',
     philosophy: 'The three marks. One human.',
     details: ['Numbered edition of 300', 'Large back print', 'Heavy 240gsm'],
@@ -125,7 +126,7 @@ export const products = [
     slug: 'manifesto-hoodie', name: 'Manifesto Hoodie — Drop 001', pillar: 'SPIRIT',
     price: 148, compareAt: null, badge: 'Limited · 200',
     sizes: ['S', 'M', 'L', 'XL'], colors: ['Off-black'],
-    image: img('elite-manifesto'),
+    image: img('manifesto-hoodie.svg'),
     description: 'Full manifesto printed inside the hood. Ember sleeve mark.',
     philosophy: 'Wear the reasoning behind the marks.',
     details: ['Numbered edition of 200', 'Interior manifesto print', 'Ember sleeve hit'],
@@ -135,7 +136,7 @@ export const products = [
     slug: 'spirit-beanie', name: 'Spirit Beanie', pillar: 'SPIRIT',
     price: 34, compareAt: null, badge: null,
     sizes: ['OS'], colors: ['Black', 'Ember'],
-    image: img('elite-beanie'),
+    image: img('spirit-beanie.svg'),
     description: 'Ribbed knit, woven label. For cold morning runs.',
     philosophy: 'Warm head. Clear spirit.',
     details: ['Ribbed knit', 'Woven label', 'Double layer'],
@@ -145,7 +146,7 @@ export const products = [
     slug: 'practice-kit', name: 'Practice Kit — Bottle + Tote + Straps', pillar: 'SPIRIT',
     price: 72, compareAt: 86, badge: 'Bundle',
     sizes: ['OS'], colors: ['Black'],
-    image: img('elite-kit'),
+    image: img('practice-kit.svg'),
     description: 'Steel 750ml bottle, canvas tote with journal print, cotton lifting straps.',
     philosophy: 'Everything for the practice. Nothing extra.',
     details: ['750ml steel bottle', 'Canvas tote', 'Lifting straps'],

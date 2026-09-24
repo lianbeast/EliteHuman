@@ -2,6 +2,9 @@ import { useMemo, useState } from 'react';
 import { products, formatPrice, getProduct } from './products.js';
 import { ProductCard, SiteNav, SiteFooter, CartDrawer } from './components.jsx';
 import { useCart } from './cart.jsx';
+import { BASE_URL } from '../lib/base.js';
+
+const art = (f) => `${BASE_URL}assets/shop/${f}`;
 
 export const cartTotal = (items) =>
   items.reduce((s, i) => {
@@ -43,7 +46,7 @@ export function HomePage({ route }) {
           </div>
         </div>
         <div className="eh-hero-img">
-          <img src="https://picsum.photos/seed/elite-hero/1000/1200" alt="Elite Human training" />
+          <img src={art('hero.svg')} alt="Elite Human — Wear the Discipline" />
         </div>
       </header>
 
@@ -59,9 +62,9 @@ export function HomePage({ route }) {
         <p className="eh-section-sub">Shop by practice. Body performs, Mind endures, Spirit reminds.</p>
         <div className="eh-pillars">
           {[
-            { k: 'BODY', img: 'https://picsum.photos/seed/elite-body/800/600', copy: 'Heavy tees, stringers, shorts. Built for sets.' },
-            { k: 'MIND', img: 'https://picsum.photos/seed/elite-mind/800/600', copy: 'Quiet hoodie, joggers, cap. Daily uniform.' },
-            { k: 'SPIRIT', img: 'https://picsum.photos/seed/elite-spirit/800/600', copy: 'Numbered Drop 001. From the journal.' },
+            { k: 'BODY', img: art('pillar-body.svg'), copy: 'Heavy tees, stringers, shorts. Built for sets.' },
+            { k: 'MIND', img: art('pillar-mind.svg'), copy: 'Quiet hoodie, joggers, cap. Daily uniform.' },
+            { k: 'SPIRIT', img: art('pillar-spirit.svg'), copy: 'Numbered Drop 001. From the journal.' },
           ].map((c) => (
             <a key={c.k} href={`/shop?pillar=${c.k}`} className="eh-pillar">
               <img src={c.img} alt={c.k} loading="lazy" />
@@ -83,7 +86,7 @@ export function HomePage({ route }) {
 
       <section className="eh-wrap eh-section">
         <div className="eh-split">
-          <img src="https://picsum.photos/seed/elite-craft/900/1100" alt="Fabric detail" loading="lazy" />
+          <img src={art('craft.svg')} alt="Cut and cloth — 240, 380, 480gsm fabrics" loading="lazy" />
           <div>
             <h2 className="eh-h2">480gsm. Tonal. No noise.</h2>
             <p className="eh-section-sub">
