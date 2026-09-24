@@ -6,9 +6,10 @@ export default function PostList() {
   return (
     <div style={{ maxWidth: '42rem', margin: '0 auto', padding: 'var(--space-6) var(--space-4) var(--space-5)' }}>
       <header style={{ marginBottom: 'var(--space-6)' }}>
+        <a href="/" style={{ fontFamily: 'var(--font-mono)', fontSize: '0.7rem', letterSpacing: '0.15em', color: 'var(--accent)', textDecoration: 'none' }}>← SHOP</a>
         <h1 style={{
           fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: 'clamp(3rem, 8vw, 5rem)',
-          letterSpacing: '0.02em', margin: 0, lineHeight: 1,
+          letterSpacing: '0.02em', margin: '0.5rem 0 0', lineHeight: 1,
         }}>ELITEHUMAN</h1>
         <p style={{
           fontFamily: 'var(--font-mono)', fontSize: '0.75rem', letterSpacing: '0.15em',

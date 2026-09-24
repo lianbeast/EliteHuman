@@ -2,6 +2,8 @@ import { useEffect, useState } from 'react';
 import PostList from './blog/PostList.jsx';
 import Post from './blog/Post.jsx';
 import Archive from './archive/Archive.jsx';
+import { CartProvider } from './shop/cart.jsx';
+import { HomePage, ShopPage, ProductPage, ManifestoPage, CheckoutPage } from './shop/pages.jsx';
 
 const BASE = import.meta.env.BASE_URL; // '/EliteHuman/' on Pages, '/' local
 const routeOf = (url) => {
@@ -11,7 +13,7 @@ const routeOf = (url) => {
 };
 
 function useRoute() {
-  const [path, setPath] = useState(() => routeOf(window.location.pathname));
+  const [path, setPath] = useState(() => routeOf(window.location.pathname) + window.location.search);
   // SPA fallback (404.html) lands on /#archive-style hash — adopt it once, then strip
   useEffect(() => {
     if (window.location.hash.startsWith('#/')) {
@@ -21,7 +23,7 @@ function useRoute() {
     }
   }, []);
   useEffect(() => {
-    const onPop = () => setPath(routeOf(window.location.pathname));
+    const onPop = () => setPath(routeOf(window.location.pathname) + window.location.search);
     window.addEventListener('popstate', onPop);
     const onClick = (e) => {
       const a = e.target.closest('a');
@@ -43,10 +45,29 @@ function useRoute() {
 }
 
 export default function App() {
-  const path = useRoute();
+  const fullPath = useRoute();
+  const [cleanPath, search] = (() => {
+    const q = fullPath.indexOf('?');
+    return q === -1 ? [fullPath, ''] : [fullPath.slice(0, q), fullPath.slice(q)];
+  })();
+  const path = cleanPath || '/';
 
   const postMatch = path.match(/^\/post\/([\w-]+)$/);
-  if (postMatch) return <Post slug={postMatch[1]} />;
-  if (path === '/archive') return <Archive />;
-  return <PostList />;
+  const productMatch = path.match(/^\/product\/([\w-]+)$/);
+  const content = (() => {
+    if (postMatch) return <Post slug={postMatch[1]} />;
+    if (productMatch) return <ProductPage route={path} slug={productMatch[1]} />;
+    if (path === '/archive') return <Archive />;
+    if (path === '/journal') return <PostList />;
+    if (path === '/shop') {
+      const pillar = new URLSearchParams(search).get('pillar');
+      return <ShopPage key={search} route={path} initialPillar={pillar} />;
+    }
+    if (path === '/manifesto') return <ManifestoPage route={path} />;
+    if (path === '/checkout') return <CheckoutPage route={path} />;
+    if (path === '/') return <HomePage route={path} />;
+    return <HomePage route={path} />;
+  })();
+
+  return <CartProvider>{content}</CartProvider>;
 }

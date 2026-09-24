@@ -25,7 +25,7 @@ export default function Archive() {
 
   return (
     <div style={{ minHeight: '100dvh', padding: '8vh 6vw', color: 'var(--ink)' }}>
-      <a href="/" style={{ fontFamily: 'var(--font-mono)', fontSize: '0.75rem', color: 'var(--accent)', letterSpacing: '0.15em', textDecoration: 'none' }}>← BACK TO THE JOURNAL</a>
+      <a href="/journal" style={{ fontFamily: 'var(--font-mono)', fontSize: '0.75rem', color: 'var(--accent)', letterSpacing: '0.15em', textDecoration: 'none' }}>← BACK TO THE JOURNAL</a>
       <h1 style={{ fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: 'clamp(3rem, 8vw, 6rem)', margin: '1rem 0 0.5rem', letterSpacing: '0.02em' }}>
         THE 105 MARKS
       </h1>

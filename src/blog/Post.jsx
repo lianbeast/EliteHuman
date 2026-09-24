@@ -14,7 +14,7 @@ export default function Post({ slug }) {
     return (
       <div style={{ maxWidth: '42rem', margin: '0 auto', padding: 'var(--space-6) var(--space-4)' }}>
         <p style={{ fontFamily: 'var(--font-mono)' }}>No such post.</p>
-        <a href="/" style={{ fontFamily: 'var(--font-mono)', color: 'var(--accent)' }}>← Back to the journal</a>
+        <a href="/journal" style={{ fontFamily: 'var(--font-mono)', color: 'var(--accent)' }}>← Back to the journal</a>
       </div>
     );
   }
@@ -22,7 +22,7 @@ export default function Post({ slug }) {
   return (
     <div style={{ maxWidth: '42rem', margin: '0 auto', padding: 'var(--space-5) var(--space-4) var(--space-5)' }}>
       <nav style={{ marginBottom: 'var(--space-4)' }}>
-        <a href="/" style={{ fontFamily: 'var(--font-mono)', fontSize: '0.75rem', letterSpacing: '0.15em', color: 'var(--accent)' }}>← ELITEHUMAN</a>
+        <a href="/journal" style={{ fontFamily: 'var(--font-mono)', fontSize: '0.75rem', letterSpacing: '0.15em', color: 'var(--accent)' }}>← JOURNAL</a>
       </nav>
       <article>
         <h1 style={{
