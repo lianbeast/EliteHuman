@@ -7,8 +7,13 @@ Baseline: DESIGN.md direction contract. Tokens in src/styles.css.
 ## Checkpoints
 
 ### Visual targets
-- Desktop 1440px: hero oversized t-hero, left-aligned, product-first /shop first viewport
-- Mobile 375px: wordmark, nav compact, filters scroll, cart sheet full-width, tappable 44px targets
+- Desktop 1440px: hero is full-bleed archive photograph (post 1870461511266088094, 80 likes) with
+  oversized t-hero over a left scrim; credit line bottom-right links the post. Pillar counts below
+  as a hairline-divided tabular row, each cell linking `/archive?pillar=`.
+- Mobile 375px: hero stacks — scrim flips to vertical (opaque behind the type, separate top band
+  behind the credit); credit line re-anchors to the top-left of the overlay, figure still
+  absolute full-bleed; pillar cells 2-up with the date cell spanning the row; wordmark, nav
+  compact, filters scroll, cart sheet full-width, 44px targets
 
 ### Contrast & color
 - Text/ink vs paper: #FAFAFA on #0A0A0A ≥ 18:1

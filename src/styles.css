@@ -8,6 +8,9 @@
 @import '@fontsource/spectral/700.css';
 @import '@fontsource/space-mono/400.css';
 @import '@fontsource/space-mono/700.css';
+/* Display face. Installed as a real dependency — Vite resolves this at build,
+   so it fails loudly rather than falling back to a system face. */
+@import '@fontsource/archivo-black/400.css';
 
 :root {
   /* The street world is dark-first: a gym floor at night, not a gallery. */
@@ -20,13 +23,13 @@
   --clay: #c44a2c;
   --clay-ink: #fafafa;
 
-  /* Display: a heavy system grotesque, tightly tracked, uppercase. Condensed
-     where the platform offers it — this is the street brand's voice. */
+  /* Display: Archivo Black, self-hosted. The system faces behind it exist only
+     so a missing webfont degrades legibly — they are not the intended voice. */
   --font-display: 'Archivo Black', 'Helvetica Neue', Impact, sans-serif;
   --font-body: 'Spectral', georgia, serif;
   --font-mono: 'Space Mono', ui-monospace, monospace;
 
-  --t-hero: clamp(3rem, 11vw, 9rem);
+  --t-hero: clamp(3.25rem, 9.5vw, 6rem);
   --t-section: clamp(2rem, 5vw, 3.75rem);
   --t-title: clamp(1.375rem, 2.5vw, 2rem);
   --t-body: 1.0625rem;
@@ -354,41 +357,229 @@ a {
 
 /* ── home ─────────────────────────────────────────────────────────────── */
 
+/* Hero is the authored moment: the record's own photograph, full-bleed, with
+   the display type breaking across it. `clip-path` + `opacity` from a visible
+   default — one reveal, exponential ease-out, nothing else animates. */
 .hero {
+  position: relative;
   display: grid;
-  gap: clamp(2rem, 4vw, 3rem);
-  padding-block: clamp(3rem, 8vw, 7rem) clamp(3rem, 7vw, 6rem);
   align-items: end;
+  min-block-size: min(92svh, 60rem);
+  padding-block-end: clamp(1.5rem, 3vw, 2.5rem);
+  overflow: hidden;
+  isolation: isolate;
 }
 
-@media (min-width: 900px) {
-  .hero {
-    grid-template-columns: minmax(0, 1fr) auto;
-  }
+.hero__media {
+  position: absolute;
+  inset: 0;
+  margin: 0;
+  z-index: 0;
 }
 
-.hero__stats {
-  display: grid;
-  gap: 0.5rem;
-  font-family: var(--font-mono);
-  font-size: var(--t-label);
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
+.hero__img {
+  inline-size: 100%;
+  block-size: 100%;
+  object-fit: cover;
+  object-position: 62% 30%;
+  /* Scrim is the only reason the type is legible over the photograph; it is
+     tinted from the paper hue, not a neutral gray. */
+  filter: grayscale(100%) contrast(1.06) brightness(0.82);
+  /* `backwards` (not `both`) so the wipe only fills once it starts — the
+     element is fully painted before the animation begins, never blank. */
+  animation: hero-reveal 900ms var(--ease) backwards;
+}
+
+.hero__media::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  /* --paper is #0a0a0a; the rgba steps below are that hue, not a neutral gray. */
+  background:
+    linear-gradient(90deg, var(--paper) 0%, rgb(10 10 10 / 0.86) 38%, rgb(10 10 10 / 0.18) 72%),
+    linear-gradient(0deg, var(--paper) 0%, rgb(10 10 10 / 0) 42%);
+}
+
+.hero__credit {
+  position: absolute;
+  inset-block-end: clamp(1.5rem, 3vw, 2.5rem);
+  inset-inline-end: var(--gut);
+  z-index: 2;
+  text-align: end;
+}
+
+.hero__credit a {
+  text-decoration: none;
   color: var(--ink-2);
-  padding-bottom: 0.75rem;
+}
+
+.hero__credit a:hover {
+  color: var(--ink);
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+.hero__body {
+  position: relative;
+  z-index: 1;
+  padding-block: clamp(3rem, 8vw, 7rem);
+  grid-area: 1 / 1;
+}
+
+/* Display type breaking the grid deliberately: the one moment where the
+   scale is allowed to collide with the right margin. */
+.hero__title {
+  font-family: var(--font-display);
+  font-size: var(--t-hero);
+  font-weight: 400;
+  line-height: 0.82;
+  letter-spacing: -0.045em;
+  text-transform: uppercase;
+  text-wrap: balance;
+  max-inline-size: 9ch;
+  animation: hero-rise 900ms 80ms var(--ease) both;
 }
 
 .hero__sub {
-  margin-top: 1.75rem;
-  max-width: 34rem;
+  margin-block-start: clamp(1.25rem, 2.5vw, 2rem);
+  max-inline-size: 30ch;
+  color: var(--ink-2);
+  animation: hero-rise 900ms 160ms var(--ease) both;
 }
 
-.hero__cta {
-  display: inline-block;
-  margin-top: 1.5rem;
-  text-decoration: underline;
-  text-underline-offset: 4px;
-  text-decoration-thickness: 1px;
+.hero__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-block-start: clamp(1.5rem, 3vw, 2.25rem);
+  animation: hero-rise 900ms 240ms var(--ease) both;
+}
+
+@keyframes hero-reveal {
+  from {
+    clip-path: inset(0 0 100% 0);
+    opacity: 0;
+  }
+  to {
+    clip-path: inset(0 0 0 0);
+    opacity: 1;
+  }
+}
+
+@keyframes hero-rise {
+  from {
+    opacity: 0;
+    transform: translateY(0.5rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Pillar counts as the page's only tabular data row: hairline-divided cells,
+   numbers sized as a structural signal rather than a stat card. Dividers live
+   on the <li> so they span the full cell; the <a> inside only carries state. */
+.hero__stats {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  margin-block: 0;
+  list-style: none;
+  border-block-end: 1px solid var(--rule);
+  padding-block-end: clamp(3rem, 6vw, 4.5rem);
+}
+
+.hero__stats > li {
+  border-block-start: 1px solid var(--rule);
+  border-inline-end: 1px solid var(--rule);
+}
+
+.hero__stats > li:nth-child(2n) {
+  border-inline-end: 0;
+}
+
+.hero__stat {
+  display: grid;
+  gap: 0.25rem;
+  block-size: 100%;
+  padding: clamp(1.25rem, 3vw, 2rem) clamp(1rem, 2vw, 1.75rem);
+  text-decoration: none;
+  color: var(--ink);
+  transition: background 160ms var(--ease), color 160ms var(--ease);
+}
+
+.hero__stat:hover {
+  background: var(--clay);
+  color: var(--clay-ink);
+}
+
+.hero__stat:hover .hero__stat-key,
+.hero__stat:hover .muted {
+  color: var(--clay-ink);
+}
+
+.hero__stat-num {
+  font-family: var(--font-display);
+  font-size: clamp(2.5rem, 6vw, 4.5rem);
+  line-height: 0.9;
+  letter-spacing: -0.03em;
+  font-variant-numeric: tabular-nums;
+}
+
+.hero__stat-key {
+  color: var(--ink-2);
+}
+
+/* The 4th cell is the record's date span, not a count — it is a plain <li>
+   and must align to the bottom of the row it shares with the numbers. */
+.hero__stats > li:last-child {
+  display: flex;
+  align-items: flex-end;
+  padding: clamp(1.25rem, 3vw, 2rem) clamp(1rem, 2vw, 1.75rem);
+  color: var(--ink-2);
+}
+
+/* Mobile runs 2-up, so the 4th cell spans the row rather than orphaning. */
+@media (max-width: 767px) {
+  .hero__stats > li:last-child {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (min-width: 768px) {
+  .hero__stats {
+    grid-template-columns: repeat(3, 1fr) minmax(0, 0.85fr);
+  }
+
+  .hero__stats > li:nth-child(2n) {
+    border-inline-end: 1px solid var(--rule);
+  }
+
+  .hero__stats > li:last-child {
+    border-inline-end: 0;
+  }
+}
+
+@media (max-width: 767px) {
+  /* The figure stays absolute and full-bleed; only the credit's anchor moves
+     to the top-left of the overlay, where the scrim is opaque. Left-aligned
+     so it does not sit under the stacked type. */
+  .hero__credit {
+    inset-block-end: auto;
+    inset-block-start: 0.75rem;
+    inset-inline-end: auto;
+    inset-inline-start: var(--gut);
+    text-align: start;
+  }
+
+  /* Stacked layout puts the type at the bottom, so the scrim is vertical:
+     opaque where the type sits, and a separate top band holds the credit. */
+  .hero__media::after {
+    background:
+      linear-gradient(0deg, var(--paper) 14%, rgb(10 10 10 / 0.5) 58%, rgb(10 10 10 / 0) 92%),
+      linear-gradient(180deg, rgb(10 10 10 / 0.86) 0%, rgb(10 10 10 / 0) 18%),
+      linear-gradient(90deg, rgb(10 10 10 / 0.7) 0%, rgb(10 10 10 / 0.2) 100%);
+  }
 }
 
 .profile {

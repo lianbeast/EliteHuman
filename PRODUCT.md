@@ -36,14 +36,16 @@ Real content, nothing invented:
 - Captions are shown verbatim — full emojis, hashtags, line breaks. Never
   rewritten into marketing copy.
 - No invented logo mark. The wordmark is text. The one exception is the shield
-  monogram the brand supplied, traced to `public/brand/shield.svg` and used as
-  a mark beside the text — never as a replacement for it. The supplied raster
-  (`public/EliteHuman-Logo.png`) is a mockup capture, not a logo asset: it
-  carries mojibake and a baked-in carousel control, so it ships nowhere.
+  monogram the brand supplied, in `public/brand/` (`logo.png` stacked lockup,
+  `mark-32/192/512.png` shield alone). A screenshot of the shield — the shield
+  cropped from `logo.png` — is not a logo asset and ships nowhere.
 
 ## Known gaps
-- Product photography does not exist yet. Shop imagery must be sourced (real
-  product shots) or, where a real shot cannot be sourced, declared as such.
+- **Product photography does not exist.** `assets/img/shop/product-1..6.jpg` are
+  byte-identical copies of one placeholder (verified by checksum), so the shop
+  grid shows the same garment six times. Real product shots must replace them
+  before launch. The hero was deliberately built on archive photography rather
+  than shop imagery, so this gap is not amplified by the front page.
 - No prices, sizes, or inventory were authored by the brand. Shop values are
   authored here for this build and are placeholders until the brand confirms.
 

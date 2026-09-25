@@ -124,32 +124,69 @@ function Lightbox({ post, list, onClose, onStep }) {
 
 /* ── home ───────────────────────────────────────────────────────────── */
 
+// Hero evidence: the record's own strongest post, not a stock garment shot.
+// 80 likes — the most in the archive. Real record, used as the brand's proof
+// in the first viewport instead of a paragraph about it.
+const HERO_POST = '1870461511266088094';
+
 function Home({ posts }) {
   const featured = FEATURED.map((id) => posts.find((p) => p.id === id)).filter(Boolean);
+  const hero = posts.find((p) => p.id === HERO_POST);
 
   return (
     <main>
-      <div className="shell hero">
-        <div>
-          <span className="label muted">01 — The Record</span>
-          <h1 className="t-hero">
-            The 105
-            <br />
-            Marks
-          </h1>
-          <p className="t-lede hero__sub">A training journal. 2015 — 2018.</p>
-          <a className="label hero__cta" href="/archive">
-            Browse the archive →
-          </a>
-        </div>
-        <ul className="hero__stats">
-          {PILLARS.map((p) => (
-            <li key={p.key}>
-              {p.key} — {String(p.count).padStart(2, '0')}
-            </li>
-          ))}
-        </ul>
-      </div>
+      {hero && (
+        <section className="hero" aria-labelledby="hero-title">
+          <figure className="hero__media">
+            <img
+              className="hero__img"
+              src={imageUrl(hero)}
+              alt={`Archive post ${hero.no} — ${hero.pillar} pillar, ${fmtShort(hero.date)}`}
+              width="1080"
+              height="1350"
+              fetchPriority="high"
+            />
+            <figcaption className="hero__credit meta">
+              <a href={`/post/${hero.id}`}>
+                <span className="muted">{hero.no}</span> · {fmtShort(hero.date)} ·{' '}
+                {hero.pillar} · {hero.likes} likes
+              </a>
+            </figcaption>
+          </figure>
+
+          <div className="shell hero__body">
+            <h1 id="hero-title" className="hero__title">
+              The 105
+              <br />
+              Marks
+            </h1>
+            <p className="t-lede hero__sub">
+              Three years, one person, every session posted. The training journal that became the
+              brand.
+            </p>
+            <div className="hero__actions">
+              <a className="btn btn--primary" href="/shop">
+                Shop the uniform
+              </a>
+              <a className="btn btn--ghost" href="/archive">
+                Read the record
+              </a>
+            </div>
+          </div>
+        </section>
+      )}
+
+      <ul className="shell hero__stats" role="list">
+        {PILLARS.map((p) => (
+          <li key={p.key}>
+            <a className="hero__stat" href={`/archive?pillar=${p.key}`}>
+              <span className="hero__stat-num">{String(p.count).padStart(2, '0')}</span>
+              <span className="hero__stat-key label">{p.key}</span>
+            </a>
+          </li>
+        ))}
+        <li className="meta">October 2015 — November 2018</li>
+      </ul>
 
       <div className="shell profile">
         <div>
