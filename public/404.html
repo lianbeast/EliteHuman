@@ -1,10 +1,22 @@
 <!doctype html>
-<!-- GitHub Pages SPA fallback: rewrite /EliteHuman/archive → /EliteHuman/ (client router takes over) -->
+<!-- GitHub Pages SPA fallback: a deep link like /EliteHuman/archive/ 404s before
+     the bundle loads, so the original path is stashed and replayed as a hash the
+     router adopts, then strips. -->
 <script>
-  // GitHub Pages SPA fallback: /EliteHuman/archive → /EliteHuman/#/archive (App router reads hash after load)
   const SEG = 'EliteHuman/';
-  const l = window.location;
-  const route = l.pathname.startsWith('/' + SEG) ? l.pathname.slice(SEG.length + 1) : '';
-  if (route) l.replace(l.origin + '/' + SEG + '#/' + route + l.search);
-  else l.replace(l.origin + '/' + SEG);
+  const p = location.pathname;
+  if (p.indexOf(SEG) !== 0 || p === '/' + SEG || p === '/' + SEG + 'index.html') {
+    // Not ours — let the real 404 stand.
+  } else {
+    let rel = p.slice(SEG.length);
+    if (rel.charAt(0) !== '/') rel = '/' + rel;
+    location.replace(
+      location.origin +
+        '/' +
+        SEG +
+        'index.html#' +
+        rel +
+        location.search
+    );
+  }
 </script>

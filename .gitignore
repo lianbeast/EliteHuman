@@ -4,3 +4,9 @@ dist/
 playwright-report/
 test-results/
 .superpowers/
+
+# Claude/agent tooling (installed locally, not site content)
+.claude/
+.github/agents/
+.github/hooks/
+.github/skills/
