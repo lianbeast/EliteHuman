@@ -1,7 +1,9 @@
 #!/usr/bin/env bash
 # Capture desktop + mobile screenshots of EliteHuman.
-# Requires: `npm run dev` running on :5173. Uses a headless Chrome already on
-# the system (or CHROME env) — no puppeteer dependency, no placeholder files.
+# Requires: a server on :5173 (or set BASE_URL). Uses a headless Chrome already
+# on the system (or CHROME env) — no puppeteer dependency, no placeholder files.
+# Captures with prefers-reduced-motion forced, so entrance animations are at
+# their settled state rather than caught mid-wipe at t=0 as invisible elements.
 set -euo pipefail
 
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
@@ -45,6 +47,7 @@ capture() {
     --user-data-dir="$PROFILE" \
     --window-size="$w,$h" \
     --virtual-time-budget=4000 \
+    --force-prefers-reduced-motion \
     --force-device-scale-factor=1 \
     --screenshot="$file" \
     "$BASE_URL$route" >/dev/null 2>&1
