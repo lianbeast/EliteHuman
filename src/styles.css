@@ -381,7 +381,10 @@ a {
   inline-size: 100%;
   block-size: 100%;
   object-fit: cover;
-  object-position: 62% 30%;
+  /* Y pinned to 0: cover crops 970px of a 1800px-scaled frame, and the founder's
+     head sits in the top 12% — any downward bias decapitates the subject. X 62%
+     only bites on mobile, where the scaled frame overflows horizontally. */
+  object-position: 62% 0%;
   /* Scrim is the only reason the type is legible over the photograph; it is
      tinted from the paper hue, not a neutral gray. */
   filter: grayscale(100%) contrast(1.06) brightness(0.82);
@@ -424,6 +427,9 @@ a {
   z-index: 1;
   padding-block: clamp(3rem, 8vw, 7rem);
   grid-area: 1 / 1;
+  /* Grid items default to stretch, but `.shell`'s auto inline margins win and
+     shrink-wrap the body — which centres the type away from the left scrim. */
+  justify-self: stretch;
 }
 
 /* Display type breaking the grid deliberately: the one moment where the
@@ -561,6 +567,13 @@ a {
 }
 
 @media (max-width: 767px) {
+  /* 375x700 frame vs 1080x1350 source: cover is height-driven, so all ~185px of
+     overflow is horizontal. The subject sits right-of-centre in the source, so
+     50% shoves him into the right edge; 85% lands him mid-frame. */
+  .hero__img {
+    object-position: 85% 0%;
+  }
+
   /* The figure stays absolute and full-bleed; only the credit's anchor moves
      to the top-left of the overlay, where the scrim is opaque. Left-aligned
      so it does not sit under the stacked type. */
