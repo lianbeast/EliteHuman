@@ -1,7 +1,7 @@
 // Shop catalog. Single read path, mirroring data.js conventions.
-// Prices, sizes, and inventory are authored here for this build and are
-// placeholders until the brand confirms them. Photography is real product
-// imagery (Unsplash) — provenance recorded in .impeccable/provenance.json.
+// Prices, sizes, inventory authored here for build 3 — placeholders until
+// brand confirms them. Photography: real product imagery (Unsplash),
+// provenance recorded in .impeccable/provenance.json.
 
 const BASE = import.meta.env.BASE_URL;
 
@@ -17,7 +17,7 @@ export const PRODUCTS = [
     img: 'product-1.jpg',
     sizes: ['S', 'M', 'L', 'XL'],
     stock: 24,
-    blurb: 'Plain black short-sleeve. No logo. The mark is the wearer.',
+    blurb: 'Plain black short-sleeve. No logo. Mark the wearer.',
   },
   {
     id: 'p2',
@@ -50,7 +50,7 @@ export const PRODUCTS = [
     img: 'product-4.jpg',
     sizes: ['7', '8', '9', '10', '11'],
     stock: 12,
-    blurb: 'Built for the track and the street. Grip first, look second.',
+    blurb: 'Built for the 400. Gum sole, no branding.',
   },
   {
     id: 'p5',
@@ -61,18 +61,18 @@ export const PRODUCTS = [
     img: 'product-5.jpg',
     sizes: ['S', 'M', 'L', 'XL'],
     stock: 30,
-    blurb: 'The other colour. Same cut. Different day.',
+    blurb: 'Off-white base layer. Washes darker with every session.',
   },
   {
     id: 'p6',
     name: 'Track Pant',
-    nameSub: 'Black · French terry · Drawstring',
+    nameSub: 'Black · French Terry · 320gsm',
     price: 64,
     pillar: 'IRON',
     img: 'product-6.jpg',
     sizes: ['S', 'M', 'L', 'XL'],
     stock: 15,
-    blurb: 'Tapered. Warm-up to errand without changing.',
+    blurb: 'Tapered leg. Drawstring. No pockets.',
   },
 ];
 
