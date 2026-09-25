@@ -1,6 +1,8 @@
 import { useCart } from '../context/CartContext.jsx';
 import { IG_URL } from '../data.js';
 
+const LOGO = `${import.meta.env.BASE_URL}brand/logo.png`;
+
 export function Header() {
   const { count, open, setOpen } = useCart();
 
@@ -8,7 +10,7 @@ export function Header() {
     <header className="masthead">
       <div className="shell masthead__row">
         <a className="wordmark" href="/">
-          Elite Human
+          <img className="wordmark__logo" src={LOGO} alt="Elite Human" width="1444" height="699" />
         </a>
         <nav className="masthead__nav label" aria-label="Primary">
           <a href="/shop">Shop</a>

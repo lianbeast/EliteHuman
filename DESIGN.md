@@ -36,7 +36,9 @@ nav, that proves the brand is a three-year practice rather than a logo.
 
 ## Components
 - **Wordmark:** text "ELITE HUMAN" in the display face, uppercase, tracked.
-  Not an image, not an SVG logo.
+  Paired with the brand shield (`public/brand/shield.svg`) at ~0.7× cap height.
+  The shield is `currentColor`-masked so it inverts with the theme; the text is
+  the wordmark, the shield is the mark.
 - **Nav:** slim full-bleed bar, brand left, links right. Mobile collapses to a
   sheet.
 - **Product card:** image, name, price, pillar tag. Rectangular, no rounded

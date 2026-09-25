@@ -35,7 +35,11 @@ Real content, nothing invented:
 - Numbers must stay exact: 105 posts, 83 IRON, 20 MIND, 2 SPIRIT, 2015–2018.
 - Captions are shown verbatim — full emojis, hashtags, line breaks. Never
   rewritten into marketing copy.
-- No invented logo mark. The wordmark is text, not an image.
+- No invented logo mark. The wordmark is text. The one exception is the shield
+  monogram the brand supplied, traced to `public/brand/shield.svg` and used as
+  a mark beside the text — never as a replacement for it. The supplied raster
+  (`public/EliteHuman-Logo.png`) is a mockup capture, not a logo asset: it
+  carries mojibake and a baked-in carousel control, so it ships nowhere.
 
 ## Known gaps
 - Product photography does not exist yet. Shop imagery must be sourced (real

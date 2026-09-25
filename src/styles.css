@@ -277,12 +277,18 @@ a {
 }
 
 .wordmark {
-  font-family: var(--font-display);
-  font-size: 1rem;
-  letter-spacing: 0.02em;
-  text-transform: uppercase;
+  display: inline-flex;
+  align-items: center;
   text-decoration: none;
   margin-right: auto;
+  /* Image is 32px tall on mobile — pad the hit area back up to the 44px floor. */
+  min-height: 44px;
+}
+/* Full stacked lockup (shield over "ELITE HUMAN"), transparent PNG. Sized by
+   height so the intrinsic 1444:699 ratio never shifts the masthead rhythm. */
+.wordmark__logo {
+  block-size: clamp(2rem, 4vw, 2.6rem);
+  inline-size: auto;
 }
 
 .masthead__nav {
@@ -739,10 +745,12 @@ a {
 }
 
 .footer__mark {
-  font-family: var(--font-display);
-  font-weight: 700;
-  font-size: clamp(2rem, 5vw, 3rem);
-  letter-spacing: -0.02em;
+  display: flex;
+  align-items: center;
+}
+.footer__logo {
+  block-size: clamp(3.5rem, 11vw, 7rem);
+  inline-size: auto;
 }
 
 .footer__line {
