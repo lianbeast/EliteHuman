@@ -1,6 +1,12 @@
 import { useEffect, useRef, useState } from 'react';
 import { loadPosts, imageUrl, PILLARS, FEATURED, IG_URL } from './data.js';
 import { BASE, pathOf, searchOf, hrefTo } from './lib/router.js';
+import { CartProvider } from './context/CartContext.jsx';
+import { CartSheet } from './components/CartSheet.jsx';
+import { Shop } from './components/Shop.jsx';
+import { ProductDetail } from './components/ProductDetail.jsx';
+import { Header } from './components/Header.jsx';
+import { Footer } from './components/Footer.jsx';
 
 const currentPath = () => pathOf(window.location.pathname);
 
@@ -45,45 +51,6 @@ const fmtDate = (d) =>
   new Date(d).toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' });
 
 const fmtShort = (d) => new Date(d).toLocaleDateString('en-GB', { day: '2-digit', month: '2-digit', year: '2-digit' });
-
-/* ── chrome ─────────────────────────────────────────────────────────── */
-
-function Header() {
-  return (
-    <header className="masthead">
-      <div className="shell masthead__row">
-        <a className="wordmark" href="/">
-          Elite Human
-        </a>
-        <nav className="masthead__nav label" aria-label="Primary">
-          <a href="/archive">The Record</a>
-          <a href={IG_URL} target="_blank" rel="noreferrer noopener">
-            Instagram ↗
-          </a>
-        </nav>
-      </div>
-    </header>
-  );
-}
-
-function Footer() {
-  return (
-    <footer className="footer">
-      <div className="shell">
-        <div className="footer__inner">
-          <p className="footer__mark">Elite Human</p>
-          <p className="footer__line">Wear Discipline. Train Body. Discipline Mind. Elevate Spirit.</p>
-        </div>
-        <div className="footer__bar meta">
-          <span>105 Marks · 2015 — 2018</span>
-          <a href={IG_URL} target="_blank" rel="noreferrer noopener">
-            Instagram ↗
-          </a>
-        </div>
-      </div>
-    </footer>
-  );
-}
 
 /* ── lightbox ───────────────────────────────────────────────────────── */
 
@@ -385,10 +352,16 @@ export default function App() {
   }, []);
 
   const postMatch = path.match(/^\/post\/([\w-]+)$/);
+  const shopMatch = path.match(/^\/shop\/([\w-]+)$/);
+
   const page = error ? (
     <p className="empty t-body">Archive unavailable: {error}</p>
   ) : !posts.length ? (
     <p className="empty t-body">Loading the record…</p>
+  ) : shopMatch ? (
+    <ProductDetail id={shopMatch[1]} />
+  ) : path === '/shop' ? (
+    <Shop search={search} />
   ) : postMatch ? (
     <Post posts={posts} id={postMatch[1]} />
   ) : path === '/archive' ? (
@@ -398,10 +371,13 @@ export default function App() {
   );
 
   return (
-    <>
-      <Header />
-      {page}
-      <Footer />
-    </>
+    <CartProvider>
+      <>
+        <Header />
+        {page}
+        <Footer />
+        <CartSheet />
+      </>
+    </CartProvider>
   );
 }
