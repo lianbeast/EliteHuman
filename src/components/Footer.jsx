@@ -1,4 +1,4 @@
-import { IG_URL } from '../data.js';
+import { IG_URL, MOTTO } from '../data.js';
 
 const LOGO = `${import.meta.env.BASE_URL}brand/logo.png`;
 
@@ -10,6 +10,7 @@ export function Footer() {
           <p className="footer__mark">
             <img className="footer__logo" src={LOGO} alt="Elite Human" width="1444" height="699" />
           </p>
+          <p className="footer__motto label">{MOTTO}</p>
           <p className="footer__line">Wear Discipline. Train Body. Discipline Mind. Elevate Spirit.</p>
         </div>
         <div className="footer__bar meta">

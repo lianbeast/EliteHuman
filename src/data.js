@@ -48,3 +48,8 @@ export const FEATURED = [
 ];
 
 export const IG_URL = 'https://www.instagram.com/elitehuman/';
+
+// Brand motto. Set as live text, never baked into the logo PNG — the lockup
+// has to stay legible, and the raster is brand-supplied artwork we don't crop.
+// Authored verbatim by the brand, including its grammar. Do not "correct".
+export const MOTTO = 'Your Limits Is Your Mentality';

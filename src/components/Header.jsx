@@ -1,5 +1,5 @@
 import { useCart } from '../context/CartContext.jsx';
-import { IG_URL } from '../data.js';
+import { IG_URL, MOTTO } from '../data.js';
 
 const LOGO = `${import.meta.env.BASE_URL}brand/logo.png`;
 
@@ -9,9 +9,12 @@ export function Header() {
   return (
     <header className="masthead">
       <div className="shell masthead__row">
-        <a className="wordmark" href="/">
-          <img className="wordmark__logo" src={LOGO} alt="Elite Human" width="1444" height="699" />
-        </a>
+        <div className="wordmark">
+          <a className="wordmark__home" href="/">
+            <img className="wordmark__logo" src={LOGO} alt="Elite Human" width="1444" height="699" />
+          </a>
+          <span className="wordmark__motto label">{MOTTO}</span>
+        </div>
         <nav className="masthead__nav label" aria-label="Primary">
           <a href="/shop">Shop</a>
           <a href="/archive">The Record</a>
