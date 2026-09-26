@@ -13,6 +13,15 @@ import { join } from 'node:path';
 
 const run = promisify(execFile);
 
+// ImageMagick 7 ships `magick`; 6 (what Debian/Ubuntu apt-install) ships only
+// `convert` and `identify`. Pick whichever exists so local and CI agree.
+const IM7 = (await run('magick', ['-version']).catch(() => null)) !== null;
+const IM = IM7 ? 'magick' : 'convert';
+const IDENTIFY = IM7 ? 'magick' : 'identify';
+if (!IM7 && !(await run('convert', ['-version']).catch(() => null))) {
+  throw new Error('ImageMagick not found — install imagemagick');
+}
+
 const ROOT = new URL('..', import.meta.url).pathname;
 const IMG = join(ROOT, 'public/assets/img');
 const OUT = join(IMG, 'w');
@@ -32,12 +41,12 @@ const postId = (post) => post.img.replace(/.*?([\w-]+)\.\w+$/, '$1');
 const exists = (p) => stat(p).then(() => true, () => false);
 
 async function width(file) {
-  const { stdout } = await run('magick', ['identify', '-format', '%w', `${file}[0]`]);
+  const { stdout } = await run(IDENTIFY, ['-format', '%w', `${file}[0]`]);
   return Number(stdout);
 }
 
 async function toWebp(src, out, w) {
-  await run('magick', [src, '-resize', `${w}x`, '-quality', '80', '-define', 'webp:method=6', '-strip', out]);
+  await run(IM, [src, '-resize', `${w}x`, '-quality', '80', '-define', 'webp:method=6', '-strip', out]);
 }
 
 const tiers = {};
@@ -107,7 +116,7 @@ for (const [w, name] of [[320, 'logo-320.webp'], [640, 'logo-640.webp']]) {
     skipped += 1;
     continue;
   }
-  await run('magick', [join(BRAND, 'logo.png'), '-resize', `${w}x`, '-quality', '80', '-define',
+  await run(IM, [join(BRAND, 'logo.png'), '-resize', `${w}x`, '-quality', '80', '-define',
     'webp:method=6', '-strip', out]);
   made += 1;
 }
