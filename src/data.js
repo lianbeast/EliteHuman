@@ -25,17 +25,17 @@ export const PILLARS = [
   {
     key: 'IRON',
     count: 83,
-    blurb: 'Training, physique, effort, the days you showed up anyway.',
+    blurb: 'Lifts, physique, the days you showed up anyway.',
   },
   {
     key: 'MIND',
     count: 20,
-    blurb: 'Focus, ambition, circumstance — the work behind the work.',
+    blurb: 'Focus, ambition, the work behind the work.',
   },
   {
     key: 'SPIRIT',
     count: 2,
-    blurb: 'Faith, breath, gratitude. The quiet part of the record.',
+    blurb: 'Faith, breath, gratitude.',
   },
 ];
 

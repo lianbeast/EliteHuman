@@ -102,13 +102,14 @@ a {
 
 /* ── type ─────────────────────────────────────────────────────────────── */
 
+/* No blanket uppercase here. Case is authored in the markup, so a heading that
+   shouts is a decision and the ones that don't read as calm by comparison. */
 h1,
 h2,
 h3 {
   font-family: var(--font-display);
   line-height: 0.95;
   letter-spacing: -0.02em;
-  text-transform: uppercase;
   text-wrap: balance;
 }
 
@@ -138,18 +139,20 @@ h3 {
   text-transform: none;
 }
 
+/* Labels stay uppercase — that is the mono's job. Tracking drops from 0.18em
+   to 0.12em: 0.18 was a costume tic, not a legibility requirement at 11px. */
 .label {
   font-family: var(--font-mono);
   font-size: var(--t-label);
   font-weight: 700;
-  letter-spacing: 0.18em;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
 }
 
 .meta {
   font-family: var(--font-mono);
   font-size: var(--t-meta);
-  letter-spacing: 0.08em;
+  letter-spacing: 0.04em;
   font-variant-numeric: tabular-nums;
 }
 
@@ -168,7 +171,7 @@ h3 {
   font-family: var(--font-mono);
   font-size: var(--t-label);
   font-weight: 700;
-  letter-spacing: 0.14em;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
   text-decoration: none;
   border: 1px solid var(--ink);
@@ -439,7 +442,7 @@ a {
   font-size: var(--t-hero);
   font-weight: 400;
   line-height: 0.82;
-  letter-spacing: -0.045em;
+  letter-spacing: -0.03em;
   text-transform: uppercase;
   text-wrap: balance;
   max-inline-size: 9ch;
@@ -628,8 +631,7 @@ a {
   font-weight: 300;
 }
 
-.section__label {
-  display: block;
+.section h2 {
   margin-bottom: clamp(2rem, 4vw, 3.5rem);
 }
 
@@ -1050,7 +1052,7 @@ a {
 .product-card__pillar {
   font-family: var(--font-mono);
   font-size: var(--t-label);
-  letter-spacing: 0.18em;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
   color: var(--ink-2);
 }
@@ -1226,8 +1228,7 @@ a {
 .cart-sheet__scrim {
   position: absolute;
   inset: 0;
-  background: rgba(10, 10, 10, 0.7);
-  backdrop-filter: blur(2px);
+  background: rgba(10, 10, 10, 0.8);
 }
 
 .cart-sheet__panel {

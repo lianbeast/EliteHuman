@@ -161,8 +161,7 @@ function Home({ posts }) {
               Marks
             </h1>
             <p className="t-lede hero__sub">
-              Three years, one person, every session posted. The training journal that became the
-              brand.
+              Every session posted. Three years, one account, nothing taken back.
             </p>
             <div className="hero__actions">
               <a className="btn btn--primary" href="/shop">
@@ -200,15 +199,14 @@ function Home({ posts }) {
           <p className="meta profile__caption">@elitehuman · 2015 — 2018</p>
         </div>
         <p className="profile__body">
-          Every post from the @elitehuman archive — body, mind, spirit. One person, one account,
-          three years of showing up. Pulled from Instagram and kept as a record, exactly as it was
-          written.
+          105 posts, October 2015 to November 2018. Iron, Mind, Spirit. Pulled off Instagram and
+          left exactly as written, typos and hashtags included.
         </p>
       </div>
 
       <section className="section">
         <div className="shell">
-          <span className="label muted section__label">02 — Selected Marks</span>
+          <h2 className="t-section">Selected Marks</h2>
           <div className="marks">
             {featured.map((post) => (
               <div key={post.id} className="marks__card">
@@ -228,12 +226,12 @@ function Home({ posts }) {
 
       <section className="section">
         <div className="shell">
-          <span className="label muted section__label">03 — By Pillar</span>
+          <h2 className="t-section">By Pillar</h2>
           <div className="pillars">
-            {PILLARS.map((p, i) => (
+            {PILLARS.map((p) => (
               <div className="pillar" key={p.key}>
                 <p className="label pillar__head">
-                  {String(i + 1).padStart(2, '0')} {p.key} — {p.count} posts
+                  {p.key} · {p.count} posts
                 </p>
                 <p className="t-body muted">{p.blurb}</p>
                 <a className="label pillar__link" href={`/archive?pillar=${p.key}`}>
@@ -277,7 +275,7 @@ function Archive({ posts, search }) {
       <div className="shell archive__head">
         <h1 className="t-section">The 105 Marks</h1>
         <p className="t-body muted" style={{ marginTop: '1rem' }}>
-          Every post from the @elitehuman archive. Body, mind, spirit.
+          All 105 posts, oldest at the bottom. Body, mind, spirit.
         </p>
 
         <div className="filters label" role="group" aria-label="Filter by pillar">

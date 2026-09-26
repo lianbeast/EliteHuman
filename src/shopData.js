@@ -77,8 +77,11 @@ export const PRODUCTS = [
 ];
 
 export const SHOP_META = {
-  name: 'Shop',
-  blurb: 'The uniform. Six pieces, no logo, no season.',
+  // Was the literal nav word "Shop" set at 6rem — a label at headline scale,
+  // which reads as a placeholder rather than a heading. "The Uniform" is the
+  // brand's own word for the clothing and carries the same meaning.
+  name: 'The Uniform',
+  blurb: 'Six pieces. No logo.',
 };
 
 export const findProduct = (id) => PRODUCTS.find((p) => p.id === id);
