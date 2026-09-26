@@ -5,11 +5,12 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "vite build && node tools/prune.mjs",
     "preview": "vite preview --port 4173",
     "test": "vitest run",
-    "scrape": "node tools/scrape.mjs",
-    "deploy": "node tools/deploy.mjs"
+    "scrape": "node tools/scrape.mjs && node tools/derivatives.mjs",
+    "deploy": "node tools/deploy.mjs",
+    "derivatives": "node tools/derivatives.mjs"
   },
   "dependencies": {
     "@fontsource/archivo-black": "^5.2.6",

@@ -1,5 +1,5 @@
 import { useCart } from '../context/CartContext.jsx';
-import { imageUrl, fmtPrice } from '../shopData.js';
+import { imageUrl, srcSet, fmtPrice } from '../shopData.js';
 
 export function CartSheet() {
   const { items, open, setOpen, updateQty, remove, subtotal, clear } = useCart();
@@ -45,6 +45,8 @@ export function CartSheet() {
                 <li key={item.key} className="cart-sheet__item">
                   <img
                     src={imageUrl(item.product)}
+                    srcSet={srcSet(item.product)}
+                    sizes="64px"
                     alt=""
                     className="cart-sheet__thumb"
                     loading="lazy"

@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { findProduct, imageUrl, fmtPrice } from '../shopData.js';
+import { findProduct, imageUrlFull, srcSet, fmtPrice } from '../shopData.js';
 import { useCart } from '../context/CartContext.jsx';
 
 export function ProductDetail({ id }) {
@@ -26,7 +26,9 @@ export function ProductDetail({ id }) {
         <article className="product-detail__grid">
           <div className="product-detail__media">
             <img
-              src={imageUrl(product)}
+              src={imageUrlFull(product)}
+              srcSet={srcSet(product)}
+              sizes="(max-width: 899px) 92vw, 44vw"
               alt={product.name}
               width="1080"
               height="1080"

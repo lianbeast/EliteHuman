@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { loadPosts, imageUrl, PILLARS, FEATURED, IG_URL } from './data.js';
+import { loadPosts, imageUrl, imageUrlFull, srcSet, gridSizes, PILLARS, FEATURED, IG_URL } from './data.js';
 import { BASE, pathOf, searchOf, hrefTo } from './lib/router.js';
 import { CartProvider } from './context/CartContext.jsx';
 import { CartSheet } from './components/CartSheet.jsx';
@@ -107,7 +107,7 @@ function Lightbox({ post, list, onClose, onStep }) {
         >
           ←
         </button>
-        <img src={imageUrl(post)} alt={`Archive post ${post.no}`} />
+        <img src={imageUrlFull(post)} srcSet={srcSet(post)} sizes="100vw" alt={`Archive post ${post.no}`} />
         <button
           className="lightbox__nav lightbox__nav--next"
           onClick={() => onStep(1)}
@@ -140,7 +140,9 @@ function Home({ posts }) {
           <figure className="hero__media">
             <img
               className="hero__img"
-              src={imageUrl(hero)}
+              src={imageUrlFull(hero)}
+              srcSet={srcSet(hero)}
+              sizes="100vw"
               alt={`Archive post ${hero.no} — ${hero.pillar} pillar, ${fmtShort(hero.date)}`}
               width="1080"
               height="1350"
@@ -191,7 +193,7 @@ function Home({ posts }) {
         <div>
           <img
             className="profile__lockup"
-            src={`${BASE}brand/logo.png`}
+            src={`${BASE}brand/logo-640.webp`}
             width="1444"
             height="699"
             alt="Elite Human"
@@ -211,7 +213,7 @@ function Home({ posts }) {
             {featured.map((post) => (
               <div key={post.id} className="marks__card">
                 <a className="photo" href={`/post/${post.id}`}>
-                  <img src={imageUrl(post)} alt={`Archive post ${post.no}`} loading="lazy" />
+                  <img src={imageUrl(post)} srcSet={srcSet(post)} sizes={gridSizes} alt={`Archive post ${post.no}`} loading="lazy" />
                 </a>
                 <span className="photo__meta meta">
                   <span>{post.no}</span>
@@ -300,7 +302,7 @@ function Archive({ posts, search }) {
           <div className="grid">
             {list.map((post) => (
               <button key={post.id} className="photo" onClick={() => setOpen(post)}>
-                <img src={imageUrl(post)} alt={`Archive post ${post.no}`} loading="lazy" />
+                <img src={imageUrl(post)} srcSet={srcSet(post)} sizes={gridSizes} alt={`Archive post ${post.no}`} loading="lazy" />
               </button>
             ))}
           </div>
@@ -339,7 +341,7 @@ function Post({ posts, id }) {
       </p>
 
       <figure className="post__figure">
-        <img src={imageUrl(post)} alt={`Archive post ${post.no}`} />
+        <img src={imageUrlFull(post)} srcSet={srcSet(post)} sizes="100vw" alt={`Archive post ${post.no}`} />
       </figure>
 
       <p className="post__caption">{post.caption}</p>

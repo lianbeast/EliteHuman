@@ -5,6 +5,11 @@ playwright-report/
 test-results/
 .superpowers/
 
+# WebP derivatives, rebuilt by `npm run derivatives` (CI does this before the
+# build). The JPEG sources stay in git — they are the archive.
+public/assets/img/w/
+public/brand/logo-*.webp
+
 # Claude/agent tooling (installed locally, not site content)
 .claude/
 .github/agents/

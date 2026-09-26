@@ -5,7 +5,20 @@
 
 const BASE = import.meta.env.BASE_URL;
 
-export const imageUrl = (product) => `${BASE}assets/img/shop/${product.img}`;
+// Squares: 640w serves the product cards, the 1080w source the detail page —
+// the widest image on the site. See tools/derivatives.mjs.
+const url = (product, w) =>
+  `${BASE}assets/img/w/shop-${product.img.replace(/\.\w+$/, '')}-${w}.webp`;
+
+const TIER = [640, 1080];
+
+export const srcSet = (product) => TIER.map((w) => `${url(product, w)} ${w}w`).join(', ');
+
+export const imageUrl = (product) => url(product, 640);
+export const imageUrlFull = (product) => url(product, 1080);
+
+/** `sizes` for a product card. Mirrors the .shop__grid breakpoints. */
+export const cardSizes = '(max-width: 639px) 92vw, (max-width: 1023px) 46vw, 30vw';
 
 export const PRODUCTS = [
   {

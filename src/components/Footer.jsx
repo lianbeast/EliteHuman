@@ -1,6 +1,6 @@
 import { IG_URL, MOTTO } from '../data.js';
 
-const LOGO = `${import.meta.env.BASE_URL}brand/logo.png`;
+const LOGO = `${import.meta.env.BASE_URL}brand/logo-640.webp`;
 
 export function Footer() {
   return (

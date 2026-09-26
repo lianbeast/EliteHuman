@@ -24,8 +24,11 @@ jobs:
           node-version: 22
           cache: npm
       - run: npm ci
+      - run: npm run derivatives   # ImageMagick is preinstalled on ubuntu-latest
       - run: npm test
       - run: npm run build
+      - name: Guard — no archive sources shipped
+        run: test -z "$(find dist/assets/img -name '*.jpg' 2>/dev/null)"
       - uses: actions/upload-pages-artifact@v3
         with:
           path: dist

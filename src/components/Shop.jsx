@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { PRODUCTS, imageUrl, SHOP_META } from '../shopData.js';
+import { PRODUCTS, imageUrl, srcSet, cardSizes, SHOP_META } from '../shopData.js';
 import { useCart } from '../context/CartContext.jsx';
 import { BASE } from '../lib/router.js';
 
@@ -58,6 +58,8 @@ export function Shop({ search }) {
                 <a className="product-card__img" href={`/shop/${product.id}`}>
                   <img
                     src={imageUrl(product)}
+                    srcSet={srcSet(product)}
+                    sizes={cardSizes}
                     alt={product.name}
                     loading="lazy"
                     width="1080"

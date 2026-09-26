@@ -19,7 +19,25 @@ export async function loadPosts() {
   return cache;
 }
 
-export const imageUrl = (post) => `${BASE}assets/${post.img}`;
+// Widths each photograph was converted to, by tools/derivatives.mjs. Bundled
+// rather fetched: 4 KB in the JS, and no render race for the map to arrive.
+import TIERS from './tiers.json';
+
+const url = (img, w) => `${BASE}assets/img/w/${img.replace(/.*?([\w-]+)\.\w+$/, '$1')}-${w}.webp`;
+
+/** `sizes` for a grid cell. Mirrors the .grid breakpoints in styles.css: two
+ *  columns below 768px, three to 1280px, four above. */
+export const gridSizes = '(max-width: 767px) 46vw, (max-width: 1279px) 31vw, 23vw';
+
+/** Every tier, for the browser to choose from with `sizes`. */
+export const srcSet = (post) => TIERS[post.img].map((w) => `${url(post.img, w)} ${w}w`).join(', ');
+
+/** Largest tier — the post figure and the lightbox, the two widest images. */
+export const imageUrlFull = (post) => url(post.img, TIERS[post.img].at(-1));
+
+/** Grid cell. `src` is the 800w tier; the `srcSet` above it lets a phone
+ *  settle for 400w instead of paying for both. */
+export const imageUrl = (post) => url(post.img, TIERS[post.img].at(-2) ?? TIERS[post.img].at(-1));
 
 export const PILLARS = [
   {

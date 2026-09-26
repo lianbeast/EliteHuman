@@ -2,15 +2,21 @@
    Direction: DESIGN.md. Replaces the monochrome editorial system.
    Black on bone, one clay accent, condensed display, hard rules. */
 
-@import '@fontsource/spectral/300.css';
-@import '@fontsource/spectral/400.css';
-@import '@fontsource/spectral/600.css';
-@import '@fontsource/spectral/700.css';
-@import '@fontsource/space-mono/400.css';
-@import '@fontsource/space-mono/700.css';
+/* Latin only, and nothing else. The bare `NNN.css` files pull cyrillic,
+   cyrillic-ext, latin-ext and vietnamese woff2 — 400 KB of dist the archive
+   never renders. Latin-ext costs real bytes here rather than being skipped:
+   these subset files carry no unicode-range, so every one of them matches the
+   same English caption and gets fetched. Every character on this site is
+   U+0000–U+024F; re-add a subset only if a caption or label actually needs it. */
+@import '@fontsource/spectral/latin-300.css';
+@import '@fontsource/spectral/latin-400.css';
+@import '@fontsource/spectral/latin-600.css';
+@import '@fontsource/spectral/latin-700.css';
+@import '@fontsource/space-mono/latin-400.css';
+@import '@fontsource/space-mono/latin-700.css';
 /* Display face. Installed as a real dependency — Vite resolves this at build,
    so it fails loudly rather than falling back to a system face. */
-@import '@fontsource/archivo-black/400.css';
+@import '@fontsource/archivo-black/latin-400.css';
 
 :root {
   /* The street world is dark-first: a gym floor at night, not a gallery. */
