@@ -12,7 +12,7 @@
 [![Forks][forks-shield]][forks-url]
 [![Stargazers][stars-shield]][stars-url]
 [![Issues][issues-shield]][issues-url]
-[![LinkedIn][linkedin-shield]][linkedin-url]
+[![License][license-shield]][license-url]
 
 <!-- PROJECT LOGO -->
 <br />
@@ -31,7 +31,7 @@
     <br />
     <a href="https://lianbeast.github.io/EliteHuman/">View the archive</a>
     &middot;
-    <a href="https://lianbeast.github.io/EliteHuman/archive">Read the record</a>
+    <a href="https://github.com/lianbeast/EliteHuman/issues/new?labels=bug">Report Bug</a>
     &middot;
     <a href="https://www.instagram.com/elitehuman/">Instagram</a>
   </p>
@@ -206,6 +206,12 @@ history, re-crop brand artwork, or "improve" the copy will be declined.
 If something is genuinely broken — a route 404s, a photograph fails to load, a
 caption renders wrong — open an issue or send a fix.
 
+### Top contributors
+
+<a href="https://github.com/lianbeast/EliteHuman/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=lianbeast/EliteHuman" alt="Elite Human contributors" />
+</a>
+
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ---
@@ -258,8 +264,8 @@ Live site: [https://lianbeast.github.io/EliteHuman/](https://lianbeast.github.io
 [stars-url]: https://github.com/lianbeast/EliteHuman/stargazers
 [issues-shield]: https://img.shields.io/github/issues/lianbeast/EliteHuman.svg?style=for-the-badge
 [issues-url]: https://github.com/lianbeast/EliteHuman/issues
-[linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&logoColorB=555
-[linkedin-url]: https://linkedin.com/in/lianbeast
+[license-shield]: https://img.shields.io/badge/license-all%20rights%20reserved-555?style=for-the-badge
+[license-url]: #license
 
 [product-screenshot]: docs/hero.png
 
