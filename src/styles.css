@@ -40,8 +40,8 @@
   --t-title: clamp(1.375rem, 2.5vw, 2rem);
   --t-body: 1.0625rem;
   --t-lede: clamp(1.125rem, 1.8vw, 1.5rem);
-  --t-label: 0.6875rem;
-  --t-meta: 0.75rem;
+  --t-label: clamp(0.6875rem, 0.6rem + 0.2vw, 0.75rem);
+  --t-meta: clamp(0.75rem, 0.65rem + 0.2vw, 0.8125rem);
 
   --gut: clamp(1.25rem, 4vw, 4rem);
   --max: 100rem;
@@ -279,6 +279,7 @@ a {
   z-index: 20;
   background: var(--paper);
   border-bottom: 1px solid var(--rule);
+  padding-top: env(safe-area-inset-top);
 }
 
 .masthead__row {
@@ -462,6 +463,7 @@ a {
   position: relative;
   z-index: 1;
   padding-block: clamp(3rem, 8vw, 7rem);
+  padding-top: max(clamp(3rem, 8vw, 7rem), env(safe-area-inset-top));
   grid-area: 1 / 1;
   /* Grid items default to stretch, but `.shell`'s auto inline margins win and
      shrink-wrap the body — which centres the type away from the left scrim. */
@@ -644,6 +646,7 @@ a {
   gap: clamp(2rem, 5vw, 5rem);
   border-top: 1px solid var(--rule);
   padding-block: clamp(3rem, 8vw, 7rem);
+  padding-top: max(clamp(3rem, 8vw, 7rem), env(safe-area-inset-top));
 }
 
 @media (min-width: 800px) {
@@ -986,6 +989,7 @@ a {
   margin-top: clamp(4rem, 10vw, 9rem);
   background: #0a0a0a;
   color: #fafafa;
+  padding-bottom: env(safe-area-inset-bottom);
 }
 
 .footer__inner {
@@ -1043,6 +1047,7 @@ a {
 
 .shop__head {
   padding-block: clamp(3rem, 8vw, 7rem);
+  padding-top: max(clamp(3rem, 8vw, 7rem), env(safe-area-inset-top));
   border-bottom: 1px solid var(--rule);
 }
 
@@ -1292,6 +1297,7 @@ a {
   display: grid;
   grid-template-rows: auto 1fr auto;
   padding: var(--gut);
+  padding-bottom: calc(var(--gut) + env(safe-area-inset-bottom));
   overflow: hidden;
 }
 
@@ -1376,8 +1382,8 @@ a {
 }
 
 .cart-sheet__qty button {
-  min-width: 32px;
-  min-height: 32px;
+  min-width: 44px;
+  min-height: 44px;
 }
 
 .cart-sheet__remove {

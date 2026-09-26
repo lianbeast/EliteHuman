@@ -14,7 +14,11 @@ function readCart() {
 }
 
 function writeCart(items) {
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(items));
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(items));
+  } catch {
+    // Private mode or quota exceeded — cart persists in memory only.
+  }
 }
 
 export function CartProvider({ children }) {

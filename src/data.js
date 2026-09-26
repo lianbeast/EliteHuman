@@ -5,11 +5,22 @@ const BASE = import.meta.env.BASE_URL;
 
 let cache = null;
 
+// Retry fetch with exponential backoff for transient network errors.
+async function fetchWithRetry(url, retries = 2) {
+  try {
+    const res = await fetch(url);
+    if (!res.ok) throw new Error(`${res.status}`);
+    return await res.json();
+  } catch (e) {
+    if (retries <= 0) throw e;
+    await new Promise((r) => setTimeout(r, 300 * (3 - retries)));
+    return fetchWithRetry(url, retries - 1);
+  }
+}
+
 export async function loadPosts() {
   if (!cache) {
-    const res = await fetch(`${BASE}assets/posts.json`);
-    if (!res.ok) throw new Error(`posts.json ${res.status}`);
-    const list = await res.json();
+    const list = await fetchWithRetry(`${BASE}assets/posts.json`);
     // Newest first — the archive reads chronologically backwards from today.
     // `no` is the archive's own index, not the Instagram id.
     cache = [...list]
