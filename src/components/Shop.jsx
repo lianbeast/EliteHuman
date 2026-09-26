@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { PRODUCTS, imageUrl, srcSet, cardSizes, SHOP_META } from '../shopData.js';
 import { useCart } from '../context/CartContext.jsx';
 import { BASE } from '../lib/router.js';
+import { Count } from './Count.jsx';
 
 const FILTERS = [
   { key: 'ALL', label: 'All' },
@@ -45,7 +46,7 @@ export function Shop({ search }) {
                 aria-pressed={filter === f.key}
                 aria-label={`${f.label}, ${n} products`}
               >
-                {f.label} <span className="muted">{n}</span>
+                {f.label} <Count to={n} className="muted" />
               </button>
             );
           })}

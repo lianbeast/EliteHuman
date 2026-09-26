@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { loadPosts, imageUrl, imageUrlFull, srcSet, gridSizes, PILLARS, FEATURED, IG_URL } from './data.js';
 import { BASE, pathOf, searchOf, hrefTo } from './lib/router.js';
+import { Count } from './components/Count.jsx';
 import { CartProvider } from './context/CartContext.jsx';
 import { CartSheet } from './components/CartSheet.jsx';
 import { Shop } from './components/Shop.jsx';
@@ -132,6 +133,7 @@ const HERO_POST = '1870461511266088094';
 function Home({ posts }) {
   const featured = FEATURED.map((id) => posts.find((p) => p.id === id)).filter(Boolean);
   const hero = posts.find((p) => p.id === HERO_POST);
+  const total = posts.length;
 
   return (
     <main>
@@ -157,8 +159,8 @@ function Home({ posts }) {
           </figure>
 
           <div className="shell hero__body">
-            <h1 id="hero-title" className="hero__title">
-              The 105
+            <h1 id="hero-title" className="t-hero hero__title">
+              The <Count to={total} className="hero__count" />{' '}
               <br />
               Marks
             </h1>
@@ -282,7 +284,7 @@ function Archive({ posts, search }) {
 
         <div className="filters label" role="group" aria-label="Filter by pillar">
           <button aria-pressed={filter === 'ALL'} onClick={() => setFilter('ALL')}>
-            All {posts.length}
+            ALL <Count to={posts.length} />
           </button>
           {PILLARS.map((p) => (
             <button
@@ -291,7 +293,7 @@ function Archive({ posts, search }) {
               aria-label={`${p.key}, ${counts[p.key]} posts`}
               onClick={() => setFilter(p.key)}
             >
-              {p.key} {counts[p.key]}
+              {p.key} <Count to={counts[p.key]} />
             </button>
           ))}
         </div>

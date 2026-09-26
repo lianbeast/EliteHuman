@@ -482,6 +482,14 @@ a {
   animation: hero-rise 900ms 80ms var(--ease) both;
 }
 
+.hero__count {
+  font-variant-numeric: tabular-nums;
+  display: inline-block;
+  /* The hinge is on the counting figure: it is drawn before the motion
+     begins so the first paint never shows 000. Motion respects
+     prefers-reduced-motion via the Count component. */
+}
+
 .hero__sub {
   margin-block-start: clamp(1.25rem, 2.5vw, 2rem);
   max-inline-size: 30ch;
