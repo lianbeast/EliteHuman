@@ -45,9 +45,12 @@ export function CartSheet() {
             ×
           </button>
         </header>
+
+        {items.length === 0 ? (
+          <div className="cart-sheet__empty">
             <p>Your cart is empty.</p>
             <a href="/shop" className="cart-sheet__cta" onClick={() => setOpen(false)}>
-              Browse the shop
+              Browse shop
             </a>
           </div>
         ) : (
@@ -59,38 +62,36 @@ export function CartSheet() {
                     src={imageUrl(item.product)}
                     srcSet={srcSet(item.product)}
                     sizes="64px"
-                    alt=""
                     className="cart-sheet__thumb"
-                    loading="lazy"
                   />
                   <div className="cart-sheet__info">
                     <p className="cart-sheet__name">{item.product.name}</p>
                     <p className="cart-sheet__meta">
-                      {item.size} · {fmtPrice(item.product.price)}
+                      {item.size} {fmtPrice(item.product.price)}
                     </p>
                     <div className="cart-sheet__qty">
                       <button
                         onClick={() => updateQty(item.key, item.qty - 1)}
-                        aria-label="Decrease quantity"
+                        aria-label="Decrease"
                       >
                         −
                       </button>
                       <span>{item.qty}</span>
                       <button
                         onClick={() => updateQty(item.key, item.qty + 1)}
-                        aria-label="Increase quantity"
+                        aria-label="Increase"
                       >
                         +
                       </button>
                     </div>
-                    <button
-                      className="cart-sheet__remove"
-                      onClick={() => remove(item.key)}
-                      aria-label={`Remove ${item.product.name}`}
-                    >
-                      Remove
-                    </button>
                   </div>
+                  <button
+                    className="cart-sheet__remove"
+                    onClick={() => remove(item.key)}
+                    aria-label={`Remove ${item.product.name}`}
+                  >
+                    ×
+                  </button>
                 </li>
               ))}
             </ul>
@@ -104,7 +105,6 @@ export function CartSheet() {
               <button
                 className="btn btn--primary cart-sheet__checkout"
                 disabled={items.length === 0}
-                onClick={() => alert('Demo checkout — no real order placed.')}
               >
                 Checkout
               </button>
