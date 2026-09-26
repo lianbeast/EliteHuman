@@ -639,12 +639,13 @@ a {
   }
 }
 
-.profile__photo {
+/* The founder's Instagram avatar is 400x400 and bakes the lockup into the
+   pixels, so it reads soft at 20rem. The brand PNG is 1444x699 — use it instead.
+   The lockup is wider than tall, so no aspect-ratio clamp. */
+.profile__lockup {
   width: 20rem;
   max-width: 100%;
   height: auto;
-  aspect-ratio: 1;
-  object-fit: cover;
 }
 
 .profile__caption {

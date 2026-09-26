@@ -190,11 +190,11 @@ function Home({ posts }) {
       <div className="shell profile">
         <div>
           <img
-            className="profile__photo"
-            src={`${BASE}assets/img/profile-hd.jpg`}
-            width="320"
-            height="320"
-            alt="The Elite Human founder"
+            className="profile__lockup"
+            src={`${BASE}brand/logo.png`}
+            width="1444"
+            height="699"
+            alt="Elite Human"
           />
           <p className="meta profile__caption">@elitehuman · 2015 — 2018</p>
         </div>
