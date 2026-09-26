@@ -790,6 +790,10 @@ a {
   padding-block: clamp(2.5rem, 6vw, 5rem) 0;
 }
 
+.archive__lede {
+  margin-top: 1rem;
+}
+
 .filters {
   display: flex;
   flex-wrap: wrap;
@@ -837,6 +841,21 @@ a {
   padding-block: 6rem;
   color: var(--ink-2);
 }
+.empty__copy {
+  max-width: 32rem;
+  color: var(--ink);
+}
+.empty__note {
+  max-width: 32rem;
+  margin-top: 0.5rem;
+}
+.empty__cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  margin-top: 1.25rem;
+  color: var(--clay);
+}
 
 /* ── lightbox ─────────────────────────────────────────────────────────── */
 
@@ -845,7 +864,9 @@ a {
   inset: 0;
   z-index: 100;
   display: grid;
-  grid-template-rows: auto 1fr auto;
+  /* minmax(0,…) not 1fr: the stage row must not grow to fit the photograph,
+     or max-height:100% on the image resolves against a content-sized row. */
+  grid-template-rows: auto minmax(0, 1fr) auto;
   background: rgba(10, 10, 10, 0.96);
   color: #fafafa;
   padding: var(--gut);
@@ -886,15 +907,23 @@ a {
 }
 
 .lightbox__stage {
-  display: grid;
-  place-items: center;
+  /* Flex, not grid: a grid row here sizes to the image, so a percentage
+     max-height on the photo resolves against content and the photograph
+     spills under the caption. A flex container's height is the definite
+     1fr track, so the percentage clamps. */
+  display: flex;
+  align-items: center;
+  justify-content: center;
   min-height: 0;
   padding-block: 1rem;
+  /* The nav arrows are absolutely positioned; without this they centre on the
+     dialog rather than on the photograph, which the caption row pushes up. */
+  position: relative;
 }
 
 .lightbox__stage img {
   max-width: 100%;
-  max-height: 70vh;
+  max-height: 100%;
   object-fit: contain;
 }
 
@@ -1165,6 +1194,11 @@ a {
   font-size: 0.95rem;
 }
 
+.product-card__low {
+  margin: 0.35rem 0 0;
+  color: var(--clay);
+}
+
 .product-card__footer {
   display: flex;
   align-items: center;
@@ -1274,6 +1308,11 @@ a {
   cursor: pointer;
   transition: border-color 140ms var(--ease), background 140ms var(--ease);
 }
+@media (pointer: coarse) {
+  .size-picker__opt {
+    min-height: 48px;
+  }
+}
 
 .size-picker__opt.is-active {
   border-color: var(--ink);
@@ -1371,8 +1410,9 @@ a {
   display: grid;
   grid-template-rows: auto 1fr auto;
   padding: var(--gut);
-  padding-bottom: calc(var(--gut) + env(safe-area-inset-bottom));
+  padding-bottom: max(1rem, env(safe-area-inset-bottom));
   overflow: hidden;
+  overscroll-behavior: contain;
   transform: translateX(100%);
   animation: panel-enter 200ms var(--ease) both;
 }
@@ -1447,7 +1487,7 @@ a {
 
 .cart-sheet__item {
   display: grid;
-  grid-template-columns: 80px 1fr auto;
+  grid-template-columns: 80px minmax(0,1fr) auto;
   gap: 1rem;
   align-items: start;
   padding-block: 1rem;
@@ -1464,6 +1504,9 @@ a {
 .cart-sheet__name {
   margin: 0;
   font-weight: 600;
+  min-width: 0;
+  overflow-wrap: anywhere;
+  word-break: break-word;
 }
 
 .cart-sheet__meta {
@@ -1477,6 +1520,7 @@ a {
   align-items: center;
   gap: 0.5rem;
   margin-top: 0.5rem;
+  min-width: 0;
 }
 
 .cart-sheet__qty button {

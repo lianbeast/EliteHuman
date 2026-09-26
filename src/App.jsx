@@ -96,13 +96,17 @@ function Lightbox({ post, list, onClose, onStep }) {
   if (!post) return null;
 
   return (
-    <div className="lightbox" role="dialog" aria-modal="true" aria-label={`Post ${post.no} of ${list.length}`} data-closing={closing}>
+    <div className="lightbox" role="dialog" aria-modal="true" aria-label={`Mark ${post.no} of ${list.length}`} // undefined, not false: React drops the attribute entirely, so `.lightbox[data-closing]`
+// only matches while closing. `data-closing={false}` renders "false" and matches anyway.
+data-closing={closing ? 'true' : undefined}>
       <div className="lightbox__bar meta">
         <span>
           {post.no} · {fmtDate(post.date)} · {post.pillar} · {post.likes} likes
         </span>
-        <button ref={closeRef} onClick={handleClose}>
-          Close ×
+        <button ref={closeRef} onClick={handleClose} aria-label="Close lightbox">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
+            <path d="M6 6l12 12M18 6L6 18" strokeLinecap="round" />
+          </svg>
         </button>
       </div>
 
@@ -112,7 +116,9 @@ function Lightbox({ post, list, onClose, onStep }) {
           onClick={() => onStep(-1)}
           aria-label="Previous post"
         >
-          ←
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
+            <path d="M15 6l-6 6 6 6" strokeLinecap="round" strokeLinejoin="round" />
+          </svg>
         </button>
         <img src={imageUrlFull(post)} srcSet={srcSet(post)} sizes="100vw" alt={`Archive post ${post.no}`} />
         <button
@@ -120,7 +126,9 @@ function Lightbox({ post, list, onClose, onStep }) {
           onClick={() => onStep(1)}
           aria-label="Next post"
         >
-          →
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
+            <path d="M9 6l6 6-6 6" strokeLinecap="round" strokeLinejoin="round" />
+          </svg>
         </button>
       </div>
 
@@ -221,7 +229,7 @@ function Home({ posts }) {
             {featured.map((post) => (
               <div key={post.id} className="marks__card">
                 <a className="photo" href={`/post/${post.id}`}>
-                  <img src={imageUrl(post)} srcSet={srcSet(post)} sizes={gridSizes} alt={`Archive post ${post.no}`} loading="lazy" />
+                  <img src={imageUrl(post)} srcSet={srcSet(post)} sizes={gridSizes} alt={`Archive post ${post.no} · ${post.pillar}`} loading="lazy" />
                 </a>
                 <span className="photo__meta meta">
                   <span>{post.no}</span>
@@ -284,7 +292,7 @@ function Archive({ posts, search }) {
     <main>
       <div className="shell archive__head">
         <h1 className="t-section">The 105 Marks</h1>
-        <p className="t-body muted" style={{ marginTop: '1rem' }}>
+        <p className="t-body muted archive__lede">
           All 105 posts, oldest at the bottom. Body, mind, spirit.
         </p>
 
@@ -310,12 +318,15 @@ function Archive({ posts, search }) {
           <div className="grid">
             {list.map((post) => (
               <button key={post.id} className="photo" onClick={() => setOpen(post)}>
-                <img src={imageUrl(post)} srcSet={srcSet(post)} sizes={gridSizes} alt={`Archive post ${post.no}`} loading="lazy" />
+                <img src={imageUrl(post)} srcSet={srcSet(post)} sizes={gridSizes} alt={`Archive post ${post.no} · ${post.pillar}`} loading="lazy" />
               </button>
             ))}
           </div>
         ) : (
-          <p className="empty t-body">Nothing filed under {filter} yet.</p>
+          <div className="empty empty--filter">
+            <p className="empty__copy t-body">No marks filed under {filter}.</p>
+            <a className="label empty__cta" href="/archive">View the full record</a>
+          </div>
         )}
       </div>
 
@@ -330,8 +341,9 @@ function Post({ posts, id }) {
   const i = posts.findIndex((p) => p.id === id);
   if (i === -1) {
     return (
-      <main className="shell">
-        <p className="empty t-body">That mark is not in the archive.</p>
+      <main className="shell empty">
+        <p className="empty__copy t-body">That mark is not in the archive.</p>
+        <a className="label empty__cta" href="/archive">View the full record →</a>
       </main>
     );
   }
@@ -342,7 +354,10 @@ function Post({ posts, id }) {
   return (
     <main className="shell post">
       <a className="label muted post__link" href="/archive">
-        ← The Record
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
+          <path d="M15 6l-6 6 6 6" strokeLinecap="round" strokeLinejoin="round" />
+        </svg>
+        The Record
       </a>
       <p className="meta muted">
         {post.no} · {fmtDate(post.date)} · {post.pillar} · {post.likes} likes
@@ -371,14 +386,34 @@ function Post({ posts, id }) {
 
       <nav className="post__pager label" aria-label="Adjacent marks">
         {prev ? (
-          <a href={`/post/${prev.id}`}>← Previous mark</a>
+          <a href={`/post/${prev.id}`}>
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
+              <path d="M15 6l-6 6 6 6" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+            Previous mark
+          </a>
         ) : (
-          <span className="muted">← Start of record</span>
+          <span className="muted">
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
+              <path d="M15 6l-6 6 6 6" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+            Start of record
+          </span>
         )}
         {next ? (
-          <a href={`/post/${next.id}`}>Next mark →</a>
+          <a href={`/post/${next.id}`}>
+            Next mark
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
+              <path d="M9 6l6 6-6 6" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+          </a>
         ) : (
-          <span className="muted">End of record →</span>
+          <span className="muted">
+            End of record
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
+              <path d="M9 6l6 6-6 6" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+          </span>
         )}
       </nav>
     </main>
@@ -400,7 +435,15 @@ export default function App() {
   const shopMatch = path.match(/^\/shop\/([\w-]+)$/);
 
   const page = error ? (
-    <p className="empty t-body">Archive unavailable: {error}</p>
+    <main className="shell empty">
+      <p className="empty__copy t-body">The record couldn't load.</p>
+      <p className="empty__note muted t-body">
+        The archive file is fetched each visit — a network blip, not a missing record.
+      </p>
+      <button className="label empty__cta" onClick={() => window.location.reload()}>
+        Retry
+      </button>
+    </main>
   ) : !posts.length ? (
     <p className="empty t-body">Loading the record…</p>
   ) : shopMatch ? (

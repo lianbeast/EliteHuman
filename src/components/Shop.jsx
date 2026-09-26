@@ -10,6 +10,10 @@ const FILTERS = [
   { key: 'MIND', label: 'Mind' },
 ];
 
+// Low stock is a real constraint, not a marketing device — the catalog is
+// small-batch and the number is the brand's own. Show it only when it is true.
+const LOW_STOCK = 20;
+
 export function Shop({ search }) {
   const { add } = useCart();
   const [filter, setFilter] = useState(() => {
@@ -72,6 +76,9 @@ export function Shop({ search }) {
                   <h2 className="product-card__name">
                     <a href={`/shop/${product.id}`}>{product.name}</a>
                   </h2>
+                  {product.stock <= LOW_STOCK && (
+                    <p className="product-card__low muted">Low stock · {product.stock} left</p>
+                  )}
                   <p className="product-card__sub muted">{product.nameSub}</p>
                   <div className="product-card__footer">
                     <span className="product-card__price">{`$${product.price}`}</span>

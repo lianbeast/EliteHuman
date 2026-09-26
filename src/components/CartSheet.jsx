@@ -35,14 +35,17 @@ export function CartSheet() {
       aria-modal="true"
       aria-label="Shopping cart"
       onKeyDown={handleKey}
-      data-closing={closing}
+      // undefined, not false — see App.jsx Lightbox. "false" still matches [data-closing].
+      data-closing={closing ? 'true' : undefined}
     >
       <div className="cart-sheet__scrim" onClick={handleScrim} />
       <aside className="cart-sheet__panel">
         <header className="cart-sheet__head">
           <h2>Cart ({items.length})</h2>
           <button className="cart-sheet__close" onClick={handleClose} aria-label="Close cart">
-            ×
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
+              <path d="M6 6l12 12M18 6L6 18" strokeLinecap="round" />
+            </svg>
           </button>
         </header>
 
@@ -50,8 +53,8 @@ export function CartSheet() {
           <div className="cart-sheet__empty">
             <p>Your cart is empty.</p>
             <a href="/shop" className="cart-sheet__cta" onClick={() => setOpen(false)}>
-              Browse shop
-            </a>
+            Shop the uniform
+          </a>
           </div>
         ) : (
           <>

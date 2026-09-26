@@ -9,9 +9,14 @@ export function ProductDetail({ id }) {
 
   if (!product) {
     return (
-      <main className="shell product-detail">
-        <p className="empty t-body">That product is not in the shop.</p>
-        <a className="label" href="/shop">← Back to shop</a>
+      <main className="shell product-detail empty">
+        <p className="empty__copy t-body">That product isn't sold here.</p>
+        <a className="label empty__cta" href="/shop">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
+            <path d="M15 6l-6 6 6 6" strokeLinecap="round" strokeLinejoin="round" />
+          </svg>
+          Back to shop
+        </a>
       </main>
     );
   }
@@ -20,7 +25,10 @@ export function ProductDetail({ id }) {
     <main className="product-detail">
       <div className="shell">
         <a className="label muted product-detail__back" href="/shop">
-          ← Shop
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
+            <path d="M15 6l-6 6 6 6" strokeLinecap="round" strokeLinejoin="round" />
+          </svg>
+          Back to shop
         </a>
 
         <article className="product-detail__grid">
