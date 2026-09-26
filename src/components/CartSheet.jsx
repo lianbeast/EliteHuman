@@ -1,18 +1,32 @@
+import { useState, useEffect } from 'react';
 import { useCart } from '../context/CartContext.jsx';
 import { imageUrl, srcSet, fmtPrice } from '../shopData.js';
 
 export function CartSheet() {
   const { items, open, setOpen, updateQty, remove, subtotal, clear } = useCart();
+  const [closing, setClosing] = useState(false);
 
-  if (!open) return null;
+  useEffect(() => {
+    if (open && !closing) {
+      setClosing(false);
+    }
+  }, [open]);
+
+  const handleClose = () => {
+    if (closing) return;
+    setClosing(true);
+    setTimeout(() => setOpen(false), 150); // matches cart-exit duration
+  };
 
   const handleScrim = (e) => {
-    if (e.target === e.currentTarget) setOpen(false);
+    if (e.target === e.currentTarget) handleClose();
   };
 
   const handleKey = (e) => {
-    if (e.key === 'Escape') setOpen(false);
+    if (e.key === 'Escape') handleClose();
   };
+
+  if (!open && !closing) return null;
 
   return (
     <div
@@ -21,18 +35,16 @@ export function CartSheet() {
       aria-modal="true"
       aria-label="Shopping cart"
       onKeyDown={handleKey}
+      data-closing={closing}
     >
       <div className="cart-sheet__scrim" onClick={handleScrim} />
       <aside className="cart-sheet__panel">
         <header className="cart-sheet__head">
           <h2>Cart ({items.length})</h2>
-          <button className="cart-sheet__close" onClick={() => setOpen(false)} aria-label="Close cart">
+          <button className="cart-sheet__close" onClick={handleClose} aria-label="Close cart">
             ×
           </button>
         </header>
-
-        {items.length === 0 ? (
-          <div className="cart-sheet__empty">
             <p>Your cart is empty.</p>
             <a href="/shop" className="cart-sheet__cta" onClick={() => setOpen(false)}>
               Browse the shop

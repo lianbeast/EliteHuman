@@ -58,12 +58,18 @@ const fmtShort = (d) => new Date(d).toLocaleDateString('en-GB', { day: '2-digit'
 function Lightbox({ post, list, onClose, onStep }) {
   const closeRef = useRef(null);
   const restoreRef = useRef(null);
+  const [closing, setClosing] = useState(false);
+
+  const handleClose = () => {
+    setClosing(true);
+    setTimeout(onClose, 120); // matches lightbox-exit duration
+  };
 
   useEffect(() => {
     restoreRef.current = document.activeElement;
     closeRef.current?.focus();
     const onKey = (e) => {
-      if (e.key === 'Escape') onClose();
+      if (e.key === 'Escape') handleClose();
       if (e.key === 'ArrowRight') onStep(1);
       if (e.key === 'ArrowLeft') onStep(-1);
       if (e.key !== 'Tab') return;
@@ -90,12 +96,12 @@ function Lightbox({ post, list, onClose, onStep }) {
   if (!post) return null;
 
   return (
-    <div className="lightbox" role="dialog" aria-modal="true" aria-label={`Post ${post.no} of 105`}>
+    <div className="lightbox" role="dialog" aria-modal="true" aria-label={`Post ${post.no} of ${list.length}`} data-closing={closing}>
       <div className="lightbox__bar meta">
         <span>
           {post.no} · {fmtDate(post.date)} · {post.pillar} · {post.likes} likes
         </span>
-        <button ref={closeRef} onClick={onClose}>
+        <button ref={closeRef} onClick={handleClose}>
           Close ×
         </button>
       </div>
